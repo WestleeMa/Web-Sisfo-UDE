@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./pages/Dashboard";
-import "animate.css";
+// import "animate.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 AOS.init();
@@ -9,7 +9,7 @@ AOS.init();
 const App = () => {
   return (
     <Router>
-      <ScrollToTopOnPageChange />
+      {/* <ScrollToTopOnPageChange /> */}
       <Routes>
         <Route path="/" element={<Dashboard />} />
       </Routes>
