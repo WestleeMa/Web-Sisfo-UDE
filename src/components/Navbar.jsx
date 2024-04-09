@@ -64,7 +64,7 @@ export default function Navbar() {
                           {item.name}
                         </a>
                       ) : (
-                        "ah"
+                        "a"
                       );
                     })}
                   </div>
