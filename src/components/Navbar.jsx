@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import logoUKRIDA from "../assets/Logo_UKRIDA_300x300.png";
 
@@ -85,7 +85,7 @@ export default function Navbar() {
                             leaveFrom="transform opacity-100 scale-100"
                             leaveTo="transform opacity-0 scale-95"
                           >
-                            <Menu.Items className="absolute right-0 z-10 mt-5 w-56 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <Menu.Items className="absolute right-0 z-10 bg-white mt-5 w-56 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                               <div className="py-1">
                                 {dropDownThesis.map((item) => (
                                   <Menu.Item>
