@@ -1,10 +1,17 @@
 import Navbar from "../components/Navbar";
 import Banner from "../components/Banner";
 import testImg from "../assets/images.jpg";
+import { infoReq } from "../data/api-sisfo-ude";
+
+const renderInfo = async () => {
+  const infoResponse = await infoReq.get();
+  console.log(infoResponse);
+};
 
 const Dashboard = () => {
   return (
     <>
+      {renderInfo()}
       <Navbar />
       <Banner />
       <div className="container mx-auto px-4 mb-10 py-4 flex flex-wrap place-content-center">
