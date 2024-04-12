@@ -2,16 +2,51 @@ import Navbar from "../components/Navbar";
 import Banner from "../components/Banner";
 import testImg from "../assets/images.jpg";
 import { infoReq } from "../data/api-sisfo-ude";
+import { useEffect, useState } from "react";
 
-const renderInfo = async () => {
-  const infoResponse = await infoReq.get();
-  console.log(infoResponse);
+const RenderData = (props) => {
+  const data = props?.data?.data;
+  const render =
+    !data || data.length === 0 ? (
+      <>
+        <p className="text-white">No Data Available</p>
+      </>
+    ) : (
+      <>
+        {Object.entries(data).map(([key, value]) => {
+          return (
+            <div className="m-[3rem] flex" id={key}>
+              <img src={testImg} alt="" className="w-[100px] h-[100px]" />
+              <div className="mx-5 my-3">
+                <h2 className="font-bold">{value.title}</h2>
+                <p>{value.desc}</p>
+              </div>
+            </div>
+          );
+        })}
+      </>
+    );
+  return render;
 };
 
 const Dashboard = () => {
+  const [data, setData] = useState();
+
+  const fetchInfo = async () => {
+    try {
+      const infoResponse = await infoReq.get();
+      setData(infoResponse);
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchInfo();
+  }, []);
+
   return (
     <>
-      {renderInfo()}
       <Navbar />
       <Banner />
       <div className="container mx-auto px-4 mb-10 py-4 flex flex-wrap place-content-center">
@@ -58,27 +93,7 @@ const Dashboard = () => {
             <h3>Informations</h3>
           </div>
           {/* Info Items */}
-          <div className="m-[3rem] flex">
-            <img src={testImg} alt="" className="w-[100px] h-[100px]" />
-            <div className="mx-5 my-3">
-              <h2 className="font-bold">Info Title</h2>
-              <p>Info Desc</p>
-            </div>
-          </div>
-          <div className="m-[3rem] flex">
-            <img src={testImg} alt="" className="w-[100px] h-[100px]" />
-            <div className="mx-5 my-3">
-              <h2 className="font-bold">Info Title</h2>
-              <p>Info Desc</p>
-            </div>
-          </div>
-          <div className="m-[3rem] flex">
-            <img src={testImg} alt="" className="w-[100px] h-[100px]" />
-            <div className="mx-5 my-3">
-              <h2 className="font-bold">Info Title</h2>
-              <p>Info Desc</p>
-            </div>
-          </div>
+          <RenderData data={data} />
         </div>
       </div>
     </>
