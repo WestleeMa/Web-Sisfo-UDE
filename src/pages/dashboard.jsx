@@ -1,99 +1,123 @@
-import Navbar from "../components/Navbar";
+import Navbar2 from "../components/Navbar2";
 import Banner from "../components/Banner";
 import testImg from "../assets/images.jpg";
 import { infoReq } from "../data/api-sisfo-ude";
 import { useEffect, useState } from "react";
+import { Avatar, Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
 
-const RenderData = (props) => {
-  const data = props?.data?.data;
-  const render =
-    !data || data.length === 0 ? (
-      <>
-        <p className="text-white">No Data Available</p>
-      </>
-    ) : (
-      <>
-        {Object.entries(data).map(([key, value]) => {
-          return (
-            <div className="m-[3rem] flex" id={key}>
-              <img src={testImg} alt="" className="w-[100px] h-[100px]" />
-              <div className="mx-5 my-3">
-                <h2 className="font-bold">{value.title}</h2>
-                <p>{value.desc}</p>
+const LinkCard = () => {
+  const LinkItems = [
+    {
+      title: "Link Title 1",
+      url: "#",
+    },
+    {
+      title: "Link Title 2",
+      url: "#",
+    },
+    {
+      title: "Link Title 3",
+      url: "#",
+    },
+    {
+      title: "Link Title 4",
+      url: "#",
+    },
+    {
+      title: "Link Title 5",
+      url: "#",
+    },
+  ];
+  return (
+    <Card radius="sm">
+      <CardHeader className="bg-sky-950 text-white font-bold">LINKS</CardHeader>
+      <Divider />
+      <CardBody>
+        {LinkItems.map((item, index) => (
+          <div key={index} className="mb-2">
+            <h1 className="font-bold">{item.title}</h1>
+            <a href={item.url} className="cursor-pointer text-blue-500">
+              Link
+            </a>
+          </div>
+        ))}
+      </CardBody>
+    </Card>
+  );
+};
+
+const InformationCard = () => {
+  const informationData = [
+    {
+      title: "Information Title 1",
+      content:
+        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel error molestias in id quasi minus, quam illum ipsum quo repellendus ex, deserunt corrupti enim temporibus esse fuga provident debitis ut fugit veritatis dolorem, sunt amet dolor sequi. Repudiandae eos aliquam pariatur minus, quia ullam! Sed numquam nostrum minima est ut...",
+    },
+    {
+      title: "Information Title 2",
+      content:
+        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel error molestias in id quasi minus, quam illum ipsum quo repellendus ex, deserunt corrupti enim temporibus esse fuga provident debitis ut fugit veritatis dolorem, sunt amet dolor sequi. Repudiandae eos aliquam pariatur minus, quia ullam! Sed numquam nostrum minima est ut...",
+    },
+    {
+      title: "Information Title 3",
+      content:
+        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel error molestias in id quasi minus, quam illum ipsum quo repellendus ex, deserunt corrupti enim temporibus esse fuga provident debitis ut fugit veritatis dolorem, sunt amet dolor sequi. Repudiandae eos aliquam pariatur minus, quia ullam! Sed numquam nostrum minima est ut...",
+    },
+    {
+      title: "Information Title 4",
+      content:
+        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel error molestias in id quasi minus, quam illum ipsum quo repellendus ex, deserunt corrupti enim temporibus esse fuga provident debitis ut fugit veritatis dolorem, sunt amet dolor sequi. Repudiandae eos aliquam pariatur minus, quia ullam! Sed numquam nostrum minima est ut...",
+    },
+    {
+      title: "Information Title 5",
+      content:
+        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel error molestias in id quasi minus, quam illum ipsum quo repellendus ex, deserunt corrupti enim temporibus esse fuga provident debitis ut fugit veritatis dolorem, sunt amet dolor sequi. Repudiandae eos aliquam pariatur minus, quia ullam! Sed numquam nostrum minima est ut...",
+    },
+  ];
+  return (
+    <>
+      <Card radius="sm">
+        <CardHeader className="bg-sky-950 text-white font-bold">
+          INFORMATIONS
+        </CardHeader>
+        <Divider />
+        <CardBody>
+          {informationData.map((item, index) => (
+            <div className="mb-2 cursor-pointer  transition duration-300 ease-in-out hover:bg-sky-200">
+              <div className="grid grid-cols-12">
+                <div className="col-span-2">
+                  <img src={testImg}></img>
+                </div>
+                <div className="col-span-10">
+                  <h1 className="font-bold mx-2">{item.title}</h1>
+                  <p className="text-xs text-gray-400 mx-2">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                    Vel error molestias in id quasi minus, quam illum ipsum quo
+                    repellendus ex, deserunt corrupti enim temporibus esse fuga
+                    provident debitis ut fugit veritatis dolorem, sunt amet
+                    dolor sequi. Repudiandae eos aliquam pariatur minus, quia
+                    ullam! Sed numquam nostrum minima est ut...
+                  </p>
+                </div>
               </div>
             </div>
-          );
-        })}
-      </>
-    );
-  return render;
+          ))}
+        </CardBody>
+      </Card>
+    </>
+  );
 };
 
 const Dashboard = () => {
-  const [data, setData] = useState();
-
-  const fetchInfo = async () => {
-    try {
-      const infoResponse = await infoReq.get();
-      setData(infoResponse);
-    } catch (error) {
-      console.error("Error fetching data: ", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchInfo();
-  }, []);
-
   return (
     <>
-      <Navbar />
       <Banner />
-      <div className="container mx-auto px-4 mb-10 py-4 flex flex-wrap place-content-center">
-        {/* Link Card */}
-        <div className="w-[20rem] h-auto bg-white rounded-md m-3">
-          <div className="bg-sky-950 m-[1rem] p-[1rem] rounded-lg text-white">
-            <h3>Links</h3>
-          </div>
-          {/* Links */}
-          <div className="m-[1rem] p-[1rem]">
-            <h1 className="font-bold">Link Title</h1>
-            <a href="a" className="text-blue-500">
-              Link
-            </a>
-          </div>
-          <div className="m-[1rem] p-[1rem]">
-            <h1 className="font-bold">Link Title</h1>
-            <a href="a" className="text-blue-500">
-              Link
-            </a>
-          </div>
-          <div className="m-[1rem] p-[1rem]">
-            <h1 className="font-bold">Link Title</h1>
-            <a href="a" className="text-blue-500">
-              Link
-            </a>
-          </div>
-          <div className="m-[1rem] p-[1rem]">
-            <h1 className="font-bold">Link Title</h1>
-            <a href="a" className="text-blue-500">
-              Link
-            </a>
-          </div>
-          <div className="m-[1rem] p-[1rem]">
-            <h1 className="font-bold">Link Title</h1>
-            <a href="a" className="text-blue-500">
-              Link
-            </a>
-          </div>
+      <div className="md:grid md:grid-cols-12 gap-4">
+        <div className="md:col-span-4 col-span-12 mt-4 md:mt-0">
+          <LinkCard />
         </div>
-        {/* Informations Card */}
-        <div className="w-[50rem] h-auto bg-white rounded-md m-3">
-          <div className="bg-sky-950 m-[1rem] p-[1rem] rounded-lg text-white">
-            <h3>Informations</h3>
-          </div>
-          {/* Info Items */}
-          <RenderData data={data} />
+        <div className="md:col-span-8 col-span-12 mt-4 md:mt-0">
+          <InformationCard />
         </div>
       </div>
     </>

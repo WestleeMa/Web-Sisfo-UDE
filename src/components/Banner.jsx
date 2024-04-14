@@ -1,6 +1,6 @@
 export default function Banner() {
   return (
-    <div className="bg-white rounded-md mt-5 mx-[10rem] flex items-center text-xl justify-center font-bold h-[5rem] drop-shadow">
+    <div className="text-center font-bold md:text-xl text-sm mb-10">
       <p>Welcome, Westlee!</p>
     </div>
   );
