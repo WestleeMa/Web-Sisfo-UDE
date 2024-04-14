@@ -15,14 +15,15 @@ import {
   Avatar,
 } from "@nextui-org/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-
+import { useNavigate } from "react-router-dom";
 export default function Navbar2() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const menuItems = [
     {
       label: "Home",
-      href: "",
+      href: "/",
     },
     {
       label: "Contacts",
@@ -33,11 +34,11 @@ export default function Navbar2() {
       children: [
         {
           label: "Fill Form",
-          href: "#",
+          href: "fill-form",
         },
         {
           label: "Status",
-          href: "#",
+          href: "status",
         },
       ],
     },
@@ -90,7 +91,10 @@ export default function Navbar2() {
                 }}
               >
                 {el.children.map((child) => (
-                  <DropdownItem key={child.label}>
+                  <DropdownItem
+                    key={child.label}
+                    onClick={() => navigate(child.href)}
+                  >
                     <Link color="foreground" href={child.href}>
                       {child.label}
                     </Link>
@@ -160,7 +164,10 @@ export default function Navbar2() {
                 }}
               >
                 {el.children.map((child) => (
-                  <DropdownItem key={child.label}>
+                  <DropdownItem
+                    key={child.label}
+                    onClick={() => navigate(child.href)}
+                  >
                     <Link color="foreground" href={child.href}>
                       {child.label}
                     </Link>
