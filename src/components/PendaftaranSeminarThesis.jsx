@@ -136,7 +136,7 @@ export default function PendaftaranSeminar() {
           ))}
         </RadioGroup>
         <Input
-          label="Bukti Approval Dospem untuk Daftar Ujiann"
+          label="Bukti Approval Dospem untuk Daftar Ujian"
           size="sm"
           className="mt-3 cursor-pointer"
           placeholder="(PDF Email/screenshot WhatsApp yang ada tertera teks approval dari Dospem)"
