@@ -11,7 +11,6 @@ export default function FormOption() {
     { id: 2, descr: "Pendaftaran Ujian Seminar of Thesis Proposal" },
     { id: 3, descr: "Pengumpulan File: Syarat Sidang Skripsi" },
     { id: 4, descr: "Pendaftaran Sidang Skripsi" },
-    { id: 5, descr: "Menyelenggarakan Kuliah Pengganti (KP)" },
   ];
 
   const [selectedForm, setSelectedForm] = useState(null);
