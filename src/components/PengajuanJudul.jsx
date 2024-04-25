@@ -1,8 +1,9 @@
-import { Input, Radio, RadioGroup } from "@nextui-org/react";
-import { useRef } from "react";
-import { Button } from "@nextui-org/react";
+import { Input, Radio, RadioGroup, Button } from "@nextui-org/react";
+import { useRef, useState } from "react";
 
 export default function PengajuanJudul() {
+  const [pengajuanJudul, setPengajuanJudul] = useState({});
+
   const radioKajianSkripsi = [
     {
       id: 1,
@@ -56,11 +57,26 @@ export default function PengajuanJudul() {
     },
   ];
 
+  const handleProposalChange = (e) => {
+    const file = e.target.files[0];
+    setPengajuanJudul({ ...pengajuanJudul, naskah_proposal: file });
+  };
+
   const fileRef = useRef(null);
   return (
     <div className="grid grid-cols-12 gap-4 m-5 mb-[5rem]">
-      <div className="md:col-span-6 col-span-12">
-        <RadioGroup label="Pilih Bidang Kajian Skripsi" size="sm" isRequired>
+      <div className="col-span-12">
+        <RadioGroup
+          label="Pilih Bidang Kajian Skripsi"
+          size="sm"
+          isRequired
+          onChange={(e) =>
+            setPengajuanJudul({
+              ...pengajuanJudul,
+              kajian_skripsi: e.target.value,
+            })
+          }
+        >
           {radioKajianSkripsi.map((el) => (
             <Radio value={el.id}>{el.descr}</Radio>
           ))}
@@ -70,36 +86,66 @@ export default function PengajuanJudul() {
           size="sm"
           className="my-3"
           isRequired
+          onBlur={(e) =>
+            setPengajuanJudul({
+              ...pengajuanJudul,
+              judul_skripsi: e.target.value,
+            })
+          }
         ></Input>
         <Input
           label="Judul Skripsi Sebelumnya"
           size="sm"
           className="mt-3"
           placeholder="(Isi bila mengusulkan ganti judul)"
+          onBlur={(e) =>
+            setPengajuanJudul({
+              ...pengajuanJudul,
+              prev_judul_skripsi: e.target.value,
+            })
+          }
         ></Input>
         <Input
           label="Dosen Pembimbing Sebelumnya"
           size="sm"
           className="mt-3"
           placeholder="(Isi bila mengajukan ganti dosen pembimbing dan telah mendapatkan izin dari dospem lama bahwa hendak mengganti dospem)"
+          onBlur={(e) =>
+            setPengajuanJudul({
+              ...pengajuanJudul,
+              prev_dospem: e.target.value,
+            })
+          }
         ></Input>
         <RadioGroup
           label="Dosen Pembimbing 1 yang Diajukan"
           size="sm"
           className="mt-3"
           isRequired
+          onChange={(e) =>
+            setPengajuanJudul({
+              ...pengajuanJudul,
+              dospem_1: e.target.value,
+            })
+          }
         >
           {radioDosenPembimbing.map((el) => (
             <Radio value={el.id}>{el.descr}</Radio>
           ))}
         </RadioGroup>
       </div>
-      <div className="md:col-span-6 col-span-12">
+      <div className="col-span-12">
         <RadioGroup
           label="Dosen Pembimbing 2 yang Diajukan"
           size="sm"
           className="mt-3"
           isRequired
+          onChange={(e) =>
+            setPengajuanJudul({
+              ...pengajuanJudul,
+              dospem_2: e.target.value,
+            })
+          }
         >
           {radioDosenPembimbing.map((el) => (
             <Radio value={el.id}>{el.descr}</Radio>
@@ -113,14 +159,26 @@ export default function PengajuanJudul() {
           readOnly
           isRequired
           onClick={() => fileRef.current.click()}
+          value={pengajuanJudul?.naskah_proposal?.name}
         ></Input>
-        <input type="file" hidden ref={fileRef} />
+        <input
+          type="file"
+          hidden
+          ref={fileRef}
+          onChange={handleProposalChange}
+        />
 
         <RadioGroup
           label="Skema Skripsi (Yang diminati dan sudah mendapatkan acc dari Dosen Pembimbing 1 yang diajukan)"
           size="sm"
           className="mt-3"
           isRequired
+          onChange={(e) =>
+            setPengajuanJudul({
+              ...pengajuanJudul,
+              skema_skripsi: e.target.value,
+            })
+          }
         >
           {radioSkema.map((el) => (
             <Radio value={el.id}>{el.descr}</Radio>
