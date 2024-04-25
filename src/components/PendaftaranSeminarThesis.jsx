@@ -1,8 +1,9 @@
 import { Input, Radio, RadioGroup } from "@nextui-org/react";
 import { useRef } from "react";
+import imgSkema from "../assets/Syarat skema skripsi (1).png";
 import { Button } from "@nextui-org/react";
 
-export default function PengajuanJudul() {
+export default function PendaftaranSeminar() {
   const radioKajianSkripsi = [
     {
       id: 1,
@@ -60,31 +61,39 @@ export default function PengajuanJudul() {
   return (
     <div className="grid grid-cols-12 gap-4 m-5 mb-[5rem]">
       <div className="md:col-span-6 col-span-12">
-        <RadioGroup label="Pilih Bidang Kajian Skripsi" size="sm" isRequired>
-          {radioKajianSkripsi.map((el) => (
-            <Radio value={el.id}>{el.descr}</Radio>
-          ))}
-        </RadioGroup>
         <Input
-          label="Judul Skripsi yang Diusulkan"
+          label="Judul Skripsi"
           size="sm"
           className="my-3"
           isRequired
         ></Input>
+        <RadioGroup label="Bidang Kajian Skripsi" size="sm" isRequired>
+          {radioKajianSkripsi.map((el) => (
+            <Radio value={el.id}>{el.descr}</Radio>
+          ))}
+        </RadioGroup>
+        <div>
+          <RadioGroup
+            label="Skema Skripsi"
+            size="sm"
+            className="mt-3"
+            isRequired
+          >
+            <img src={imgSkema} alt="" />
+            {radioSkema.map((el) => (
+              <Radio value={el.id}>{el.descr}</Radio>
+            ))}
+          </RadioGroup>
+        </div>
         <Input
           label="Judul Skripsi Sebelumnya"
           size="sm"
           className="mt-3"
           placeholder="(Isi bila mengusulkan ganti judul)"
         ></Input>
-        <Input
-          label="Dosen Pembimbing Sebelumnya"
-          size="sm"
-          className="mt-3"
-          placeholder="(Isi bila mengajukan ganti dosen pembimbing dan telah mendapatkan izin dari dospem lama bahwa hendak mengganti dospem)"
-        ></Input>
         <RadioGroup
-          label="Dosen Pembimbing 1 yang Diajukan"
+          label="Nama Pembimbing Skripsi (Penguji 1), yang ditetapkan oleh UDE
+          "
           size="sm"
           className="mt-3"
           isRequired
@@ -96,7 +105,28 @@ export default function PengajuanJudul() {
       </div>
       <div className="md:col-span-6 col-span-12">
         <RadioGroup
-          label="Dosen Pembimbing 2 yang Diajukan"
+          label="Nama Penguji 2, yang ditetapkan oleh UDE"
+          size="sm"
+          className="mt-3"
+          isRequired
+        >
+          {radioDosenPembimbing.map((el) => (
+            <Radio value={el.id}>{el.descr}</Radio>
+          ))}
+        </RadioGroup>
+        <RadioGroup
+          label="Nama Penguji 3, yang ditetapkan oleh UDE"
+          size="sm"
+          className="mt-3"
+          isRequired
+        >
+          {radioDosenPembimbing.map((el) => (
+            <Radio value={el.id}>{el.descr}</Radio>
+          ))}
+        </RadioGroup>
+        <RadioGroup
+          label="Nama Pembimbing Akademik
+          "
           size="sm"
           className="mt-3"
           isRequired
@@ -106,26 +136,22 @@ export default function PengajuanJudul() {
           ))}
         </RadioGroup>
         <Input
-          label="Draft Naskah Proposal yang Diajukan"
+          label="Bukti Approval Dospem untuk Daftar Ujiann"
           size="sm"
           className="mt-3 cursor-pointer"
-          placeholder="(Dalam Ms. Word dan sudah mendapatkan acc dari Dosen Pembimbing 1 yang diajukan)"
+          placeholder="(PDF Email/screenshot WhatsApp yang ada tertera teks approval dari Dospem)"
           readOnly
           isRequired
           onClick={() => fileRef.current.click()}
         ></Input>
         <input type="file" hidden ref={fileRef} />
-
-        <RadioGroup
-          label="Skema Skripsi (Yang diminati dan sudah mendapatkan acc dari Dosen Pembimbing 1 yang diajukan)"
+        <Input
+          label="Link Google Doc: Naskah Skripsi Bab 1-3"
           size="sm"
-          className="mt-3"
+          className="my-3"
+          placeholder="(yang sudah di acc oleh pembimbing skripsi, UDE diberi akses dapat meng-Edit)"
           isRequired
-        >
-          {radioSkema.map((el) => (
-            <Radio value={el.id}>{el.descr}</Radio>
-          ))}
-        </RadioGroup>
+        ></Input>
         <Button color="primary" variant="shadow" className="my-3">
           Submit
         </Button>

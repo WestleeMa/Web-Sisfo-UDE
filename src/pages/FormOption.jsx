@@ -1,6 +1,8 @@
 import { Select, SelectItem } from "@nextui-org/react";
 import { useState } from "react";
 import PengajuanJudul from "../components/PengajuanJudul";
+import PendaftaranSeminar from "../components/PendaftaranSeminarThesis";
+import { Button } from "@nextui-org/react";
 
 export default function FormOption() {
   const formOptions = [
@@ -28,6 +30,7 @@ export default function FormOption() {
         </Select>
 
         {selectedForm == 1 && <PengajuanJudul />}
+        {selectedForm == 2 && <PendaftaranSeminar />}
       </div>
     </>
   );
