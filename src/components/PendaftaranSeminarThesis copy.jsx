@@ -72,19 +72,12 @@ export default function PendaftaranSeminar() {
             <Radio value={el.id}>{el.descr}</Radio>
           ))}
         </RadioGroup>
-        <div>
-          <RadioGroup
-            label="Skema Skripsi"
-            size="sm"
-            className="mt-3"
-            isRequired
-          >
-            <img src={imgSkema} alt="" />
-            {radioSkema.map((el) => (
-              <Radio value={el.id}>{el.descr}</Radio>
-            ))}
-          </RadioGroup>
-        </div>
+        <RadioGroup label="Skema Skripsi" size="sm" className="mt-3" isRequired>
+          <img src={imgSkema} alt="" />
+          {radioSkema.map((el) => (
+            <Radio value={el.id}>{el.descr}</Radio>
+          ))}
+        </RadioGroup>
         <Input
           label="Judul Skripsi Sebelumnya"
           size="sm"

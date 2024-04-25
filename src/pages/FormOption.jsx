@@ -3,6 +3,7 @@ import { useState } from "react";
 import PengajuanJudul from "../components/PengajuanJudul";
 import PendaftaranSeminar from "../components/PendaftaranSeminarThesis";
 import PengumpulanFile from "../components/PengumpulanFile";
+import PendaftaranSidang from "../components/PendaftaranSidang";
 
 export default function FormOption() {
   const formOptions = [
@@ -32,6 +33,7 @@ export default function FormOption() {
         {selectedForm == 1 && <PengajuanJudul />}
         {selectedForm == 2 && <PendaftaranSeminar />}
         {selectedForm == 3 && <PengumpulanFile />}
+        {selectedForm == 4 && <PendaftaranSidang />}
       </div>
     </>
   );
