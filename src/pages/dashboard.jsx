@@ -3,6 +3,7 @@ import testImg from "../assets/images.jpg";
 import { infoReq } from "../data/api-sisfo-ude";
 import { useEffect, useState } from "react";
 import { Avatar, Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const LinkCard = () => {
   const LinkItems = [
@@ -73,6 +74,7 @@ const InformationCard = () => {
         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel error molestias in id quasi minus, quam illum ipsum quo repellendus ex, deserunt corrupti enim temporibus esse fuga provident debitis ut fugit veritatis dolorem, sunt amet dolor sequi. Repudiandae eos aliquam pariatur minus, quia ullam! Sed numquam nostrum minima est ut...",
     },
   ];
+  const navigate = useNavigate();
   return (
     <>
       <Card radius="sm">
@@ -80,7 +82,7 @@ const InformationCard = () => {
           INFORMATIONS
         </CardHeader>
         <Divider />
-        <CardBody>
+        <CardBody onClick={() => navigate("deets")}>
           {informationData.map((item, index) => (
             <div className="mb-2 cursor-pointer  transition duration-300 ease-in-out hover:bg-sky-200">
               <div className="grid grid-cols-12">
@@ -89,14 +91,7 @@ const InformationCard = () => {
                 </div>
                 <div className="col-span-10">
                   <h1 className="font-bold mx-2">{item.title}</h1>
-                  <p className="text-xs text-gray-400 mx-2">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Vel error molestias in id quasi minus, quam illum ipsum quo
-                    repellendus ex, deserunt corrupti enim temporibus esse fuga
-                    provident debitis ut fugit veritatis dolorem, sunt amet
-                    dolor sequi. Repudiandae eos aliquam pariatur minus, quia
-                    ullam! Sed numquam nostrum minima est ut...
-                  </p>
+                  <p className="text-xs text-gray-400 mx-2">{item.content}</p>
                 </div>
               </div>
             </div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import logoUKRIDA from "../assets/Logo_UKRIDA_300x300.png";
+import userIMG from "../assets/png-transparent-user-profile-computer-icons-profile-heroes-black-silhouette-thumbnail.png";
 import {
   Navbar,
   NavbarBrand,
@@ -16,6 +17,7 @@ import {
 } from "@nextui-org/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
+
 export default function Navbar2() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -113,10 +115,7 @@ export default function Navbar2() {
         <Dropdown>
           <NavbarItem className="cursor-pointer">
             <DropdownTrigger>
-              <Avatar
-                size="sm"
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              />
+              <Avatar size="sm" src={userIMG} />
             </DropdownTrigger>
           </NavbarItem>
           <DropdownMenu
