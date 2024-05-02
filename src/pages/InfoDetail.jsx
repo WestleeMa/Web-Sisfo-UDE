@@ -14,7 +14,7 @@ export default function InfoDetail() {
     <>
       <Card radius="sm" className="max-w-[90rem] m-auto">
         <CardHeader className="bg-sky-950 text-white font-bold">
-          INFORMATIONS
+          Information Details
         </CardHeader>
         <Divider />
         <CardBody>
