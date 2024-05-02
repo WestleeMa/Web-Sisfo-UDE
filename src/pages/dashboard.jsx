@@ -1,4 +1,3 @@
-import Navbar2 from "../components/Navbar2";
 import Banner from "../components/Banner";
 import testImg from "../assets/images.jpg";
 import { infoReq } from "../data/api-sisfo-ude";
