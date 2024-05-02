@@ -6,7 +6,7 @@ export default function MainLayouts() {
     <>
       <div className="bg-white">
         <Navbar2 />
-        <div className="container mx-auto mt-3 ">
+        <div className="container mx-auto my-10 ">
           <Outlet />
         </div>
       </div>
