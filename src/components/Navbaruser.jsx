@@ -134,7 +134,7 @@ export default function Navbar2() {
               </Link>
             </DropdownItem>
             <DropdownItem>
-              <Link color="foreground" href="#">
+              <Link color="foreground" href="login">
                 Log Out
               </Link>
             </DropdownItem>
@@ -189,7 +189,9 @@ export default function Navbar2() {
           <Link color="foreground">Setting</Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground">Log out</Link>
+          <Link href="login" color="foreground">
+            Log out
+          </Link>
         </NavbarItem>
       </NavbarMenu>
     </Navbar>
