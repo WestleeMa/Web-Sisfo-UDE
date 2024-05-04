@@ -65,7 +65,7 @@ export default function PengajuanJudul() {
   const fileRef = useRef(null);
   return (
     <div className="grid grid-cols-12 gap-4 m-5 mb-[5rem]">
-      <div className="col-span-12">
+      <div className="md:col-span-6 col-span-12">
         <RadioGroup
           label="Pilih Bidang Kajian Skripsi"
           size="sm"

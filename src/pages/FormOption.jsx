@@ -23,9 +23,9 @@ export default function FormOption() {
   const [selectedForm, setSelectedForm] = useState(null);
   return (
     <>
-      <div className="grid grid-cols-12 gap-2">
+      <div className="flex flex-wrap gap-2">
         <div className="md:col-span-4 col-span-12">
-          <Card radius="sm">
+          <Card radius="sm" className="w-[25rem]">
             <CardHeader className="bg-sky-900 text-white font-bold">
               JENIS LAYANAN
             </CardHeader>

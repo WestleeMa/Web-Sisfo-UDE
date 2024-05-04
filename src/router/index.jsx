@@ -5,6 +5,7 @@ import FormOption from "../pages/FormOption";
 import InfoDetail from "../pages/InfoDetail";
 import Login from "../layouts/Login";
 import Status from "../pages/Status";
+import Manage from "../pages/adminManage";
 
 const router = createBrowserRouter([
   { path: "login", element: <Login /> },
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "deets",
         element: <InfoDetail />,
+      },
+      {
+        path: "adminmng",
+        element: <Manage />,
       },
     ],
   },
