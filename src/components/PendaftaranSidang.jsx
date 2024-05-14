@@ -58,7 +58,7 @@ export default function PendaftaranSidang() {
 
   const fileRef = useRef(null);
   return (
-    <div className="grid grid-cols-12 gap-4 m-5 mb-[5rem]">
+    <div className="grid grid-cols-12 gap-4 m-5 mb-[5rem] w-[65rem]">
       <div className="md:col-span-6 col-span-12">
         <Input
           label="Judul Skripsi"
