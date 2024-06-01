@@ -8,12 +8,13 @@ import {
 } from "@nextui-org/react";
 import { useState } from "react";
 import MngInfo from "../components/TabelInformasi";
-import MngThesis1 from "../components/TabelThesis";
+import { MngThesis1, MngThesis2 } from "../components/TabelThesis";
 
 export default function Manage() {
   const [tableOptions, _] = useState([
     { id: 1, descr: "Informasi" },
     { id: 2, descr: "Pengajuan Judul dan Dosen Pembimbing Skripsi" },
+    { id: 3, descr: "Pendaftaran Ujian Seminar of Thesis Proposal" },
   ]);
 
   const [selectedTable, setSelectedTable] = useState(null);
@@ -51,6 +52,7 @@ export default function Manage() {
           <CardBody>
             {selectedTable == 1 && <MngInfo />}
             {selectedTable == 2 && <MngThesis1 />}
+            {selectedTable == 3 && <MngThesis2 />}
           </CardBody>
         </Card>
       )}
