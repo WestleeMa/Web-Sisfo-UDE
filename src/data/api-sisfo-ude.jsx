@@ -8,19 +8,40 @@ const infoReq = axios.create({
   },
 });
 
-const getAllFormData = async (formID) => {
+const getAllFormData = async (formID, NIM) => {
   try {
-    const response = await axios.get(`${CONFIG.FORM_ENDPOINT}/${formID}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    console.log(response);
-    return response.data.data;
+    if (NIM) {
+      const response = await axios.get(
+        `${CONFIG.FORM_ENDPOINT}/${formID}?NIM=${NIM}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.data.data;
+    } else {
+      const response = await axios.get(`${CONFIG.FORM_ENDPOINT}/${formID}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      return response.data.data;
+    }
   } catch (error) {
     console.error("Error fetching form data:", error);
     throw error;
   }
 };
 
-export { infoReq, getAllFormData };
+const downloadFormFiles = async (formID, NIM) => {
+  try {
+    const url = `${CONFIG.FORM_ENDPOINT}/download/${formID}?NIM=${NIM}`;
+    window.location.href = url;
+  } catch (error) {
+    console.error("Error fetching form files:", error);
+    throw error;
+  }
+};
+
+export { infoReq, getAllFormData, downloadFormFiles };
