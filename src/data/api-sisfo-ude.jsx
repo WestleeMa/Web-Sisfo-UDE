@@ -36,12 +36,58 @@ const getAllFormData = async (formID, NIM) => {
 
 const downloadFormFiles = async (formID, NIM) => {
   try {
-    const url = `${CONFIG.FORM_ENDPOINT}/download/${formID}?NIM=${NIM}`;
-    window.location.href = url;
+    if (NIM) {
+      const url = `${CONFIG.FORM_ENDPOINT}/download/${formID}?NIM=${NIM}`;
+      window.location.href = url;
+    }
   } catch (error) {
     console.error("Error fetching form files:", error);
     throw error;
   }
 };
 
-export { infoReq, getAllFormData, downloadFormFiles };
+const deleteFormData = async (formID, NIM) => {
+  try {
+    if (NIM) {
+      const formData = new FormData();
+      formData.append("NIM", NIM);
+      const response = await axios.delete(`${CONFIG.FORM_ENDPOINT}/${formID}`, {
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response.data;
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+const login = async (NIM, password) => {
+  try {
+    if (NIM && password) {
+      const formData = new FormData();
+      formData.append("NIM", NIM);
+      formData.append("password", password);
+      const response = await axios.post(
+        `${CONFIG.API_ENDPOINT}/login`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      if (response.status === 200) {
+        return response.data;
+      }
+    } else {
+      return "Please complete the login form";
+    }
+  } catch {
+    return "Invalid NIM or Password";
+  }
+};
+export { infoReq, getAllFormData, downloadFormFiles, deleteFormData, login };

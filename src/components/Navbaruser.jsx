@@ -17,10 +17,17 @@ import {
 } from "@nextui-org/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
+import { Cookies } from "react-cookie";
 
 export default function Navbar2() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+
+  const cookie = new Cookies();
+  const handleLogout = () => {
+    cookie.remove("userData");
+    navigate("/login");
+  };
 
   const menuItems = [
     {
@@ -189,7 +196,7 @@ export default function Navbar2() {
           <Link color="foreground">Setting</Link>
         </NavbarItem>
         <NavbarItem>
-          <Link href="login" color="foreground">
+          <Link to="/login" color="foreground" onClick={() => handleLogout}>
             Log out
           </Link>
         </NavbarItem>

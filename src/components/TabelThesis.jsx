@@ -8,24 +8,68 @@ import {
   TableRow,
   useDisclosure,
 } from "@nextui-org/react";
+import Swal from "sweetalert2";
 import ModalComp from "./modalThesis";
 import { useEffect, useState } from "react";
-import { getAllFormData } from "../data/api-sisfo-ude";
+import { getAllFormData, deleteFormData } from "../data/api-sisfo-ude";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-//pengajuan judul
+function deleteForm(formID, NIM, refreshData) {
+  try {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to restore deleted data(s)",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      reverseButtons: true,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const response = await deleteFormData(formID, NIM);
+        toast.success(response, {
+          position: "top-right",
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+        refreshData(NIM);
+      } else {
+        toast.error("Form Data Deletion Cancelled.", {
+          position: "top-right",
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 function MngThesis1() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [data, setData] = useState([]);
   console.log(data);
+  const fetchData = async () => {
+    try {
+      const result = await getAllFormData(1);
+      setData(result[0]);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const updateDataState = (NIM) => {
+    setData((prevData) => prevData.filter((item) => item.NIM !== NIM));
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getAllFormData(1);
-        setData(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
     fetchData();
   }, []);
   return (
@@ -64,15 +108,20 @@ function MngThesis1() {
                 >
                   Details
                 </Button>
-                <Button color="danger" variant="shadow" className="mx-3">
-                  Delete
-                </Button>
                 <ModalComp
                   isOpen={isOpen}
                   onOpenChange={onOpenChange}
                   NIM={item.NIM}
                   formID="1"
                 ></ModalComp>
+                <Button
+                  color="danger"
+                  variant="shadow"
+                  className="mx-3"
+                  onPress={() => deleteForm(1, item.NIM, updateDataState)}
+                >
+                  Delete
+                </Button>
               </TableCell>
             </TableRow>
           ))}
@@ -83,17 +132,21 @@ function MngThesis1() {
 }
 
 function MngThesis2() {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [data, setData] = useState([]);
   console.log(data);
+  const fetchData = async () => {
+    try {
+      const result = await getAllFormData(2);
+      setData(result[0]);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const updateDataState = (NIM) => {
+    setData((prevData) => prevData.filter((item) => item.NIM !== NIM));
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getAllFormData(2);
-        setData(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
     fetchData();
   }, []);
   return (
@@ -131,10 +184,26 @@ function MngThesis2() {
               <TableCell>{item.Timestamps}</TableCell>
 
               <TableCell>
-                <Button color="warning" variant="shadow" className="mx-3">
+                <Button
+                  color="warning"
+                  variant="shadow"
+                  className="mx-3"
+                  onPress={onOpen}
+                >
                   Details
                 </Button>
-                <Button color="danger" variant="shadow" className="mx-3">
+                <ModalComp
+                  isOpen={isOpen}
+                  onOpenChange={onOpenChange}
+                  NIM={item.NIM}
+                  formID="2"
+                ></ModalComp>
+                <Button
+                  color="danger"
+                  variant="shadow"
+                  className="mx-3"
+                  onPress={() => deleteForm(2, item.NIM, updateDataState)}
+                >
                   Delete
                 </Button>
               </TableCell>
@@ -147,17 +216,21 @@ function MngThesis2() {
 }
 
 function MngThesis3() {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [data, setData] = useState([]);
   console.log(data);
+  const fetchData = async () => {
+    try {
+      const result = await getAllFormData(3);
+      setData(result[0]);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const updateDataState = (NIM) => {
+    setData((prevData) => prevData.filter((item) => item.NIM !== NIM));
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getAllFormData(3);
-        setData(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
     fetchData();
   }, []);
   return (
@@ -189,10 +262,26 @@ function MngThesis3() {
               <TableCell>{item.Timestamps}</TableCell>
 
               <TableCell>
-                <Button color="warning" variant="shadow" className="mx-3">
+                <Button
+                  color="warning"
+                  variant="shadow"
+                  className="mx-3"
+                  onPress={onOpen}
+                >
                   Details
                 </Button>
-                <Button color="danger" variant="shadow" className="mx-3">
+                <ModalComp
+                  isOpen={isOpen}
+                  onOpenChange={onOpenChange}
+                  NIM={item.NIM}
+                  formID="3"
+                ></ModalComp>
+                <Button
+                  color="danger"
+                  variant="shadow"
+                  className="mx-3"
+                  onPress={() => deleteForm(3, item.NIM, updateDataState)}
+                >
                   Delete
                 </Button>
               </TableCell>
@@ -205,17 +294,21 @@ function MngThesis3() {
 }
 
 function MngThesis4() {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [data, setData] = useState([]);
   console.log(data);
+  const fetchData = async () => {
+    try {
+      const result = await getAllFormData(4);
+      setData(result[0]);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const updateDataState = (NIM) => {
+    setData((prevData) => prevData.filter((item) => item.NIM !== NIM));
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getAllFormData(4);
-        setData(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
     fetchData();
   }, []);
   return (
@@ -253,10 +346,26 @@ function MngThesis4() {
               <TableCell>{item.Timestamps}</TableCell>
 
               <TableCell>
-                <Button color="warning" variant="shadow" className="mx-3">
+                <Button
+                  color="warning"
+                  variant="shadow"
+                  className="mx-3"
+                  onPress={onOpen}
+                >
                   Details
                 </Button>
-                <Button color="danger" variant="shadow" className="mx-3">
+                <ModalComp
+                  isOpen={isOpen}
+                  onOpenChange={onOpenChange}
+                  NIM={item.NIM}
+                  formID="4"
+                ></ModalComp>
+                <Button
+                  color="danger"
+                  variant="shadow"
+                  className="mx-3"
+                  onPress={() => deleteForm(4, item.NIM, updateDataState)}
+                >
                   Delete
                 </Button>
               </TableCell>
