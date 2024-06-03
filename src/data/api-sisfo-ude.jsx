@@ -1,12 +1,18 @@
 import axios from "axios";
 import CONFIG from "../globals/config";
 
-const infoReq = axios.create({
-  baseURL: `${CONFIG.API_ENDPOINT}/info`,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+const getInfo = async () => {
+  try {
+    const response = await axios.get(`${CONFIG.API_ENDPOINT}/info`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 const getAllFormData = async (formID, NIM) => {
   try {
@@ -90,4 +96,4 @@ const login = async (NIM, password) => {
     return "Invalid NIM or Password";
   }
 };
-export { infoReq, getAllFormData, downloadFormFiles, deleteFormData, login };
+export { getInfo, getAllFormData, downloadFormFiles, deleteFormData, login };

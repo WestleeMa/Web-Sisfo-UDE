@@ -12,7 +12,7 @@ import {
 import logoUKRIDA from "../assets/Logo_UKRIDA_300x300.png";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { login } from "../data/api-sisfo-ude";
 import { EyeFilledIcon } from "../components/decorations/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../components/decorations/EyeSlashFilledIcon";
@@ -21,11 +21,18 @@ import { Cookies } from "react-cookie";
 import Swal from "sweetalert2";
 
 export default function Login() {
+  const cookie = new Cookies();
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
   const navigate = useNavigate();
   const [NIM, setNIM] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    if (cookie.get("userData")) {
+      navigate("/");
+    }
+  });
 
   const handleLogin = async () => {
     try {
@@ -37,7 +44,7 @@ export default function Login() {
         toast.error(res);
       } else {
         const decoded = jwtDecode(res);
-        const cookie = new Cookies();
+
         cookie.set("userData", decoded, {
           expires: new Date(Date.now() + decoded.exp),
         });
@@ -59,7 +66,7 @@ export default function Login() {
   return (
     <>
       <ToastContainer />
-      <div className="p-[23rem]">
+      <div className="p-[18rem] pb-[40rem]">
         <Card className="max-w-[400px] m-auto">
           <CardHeader className="flex gap-3">
             <Image

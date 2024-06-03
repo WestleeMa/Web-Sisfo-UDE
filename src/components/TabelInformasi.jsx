@@ -8,10 +8,24 @@ import {
   Image,
   Button,
 } from "@nextui-org/react";
-
-import testIMG from "../assets/images.jpg";
+import { useEffect, useState } from "react";
+import { getInfo } from "../data/api-sisfo-ude";
 
 export default function MngInfo() {
+  const [informationData, setInformationData] = useState([]);
+  const fetchData = async () => {
+    try {
+      const data = await getInfo();
+      setInformationData(data);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <>
       <Table aria-label="Example static collection table">
@@ -23,72 +37,34 @@ export default function MngInfo() {
           <TableColumn>Action</TableColumn>
         </TableHeader>
         <TableBody>
-          <TableRow key="1">
-            <TableCell>1</TableCell>
-            <TableCell>Title 1</TableCell>
-            <TableCell>Desc 1</TableCell>
-            <TableCell>
-              <Image src={testIMG}></Image>
-            </TableCell>
-            <TableCell>
-              <Button color="warning" variant="shadow" className="mx-3">
-                Edit
-              </Button>
-              <Button color="danger" variant="shadow" className="mx-3">
-                Delete
-              </Button>
-            </TableCell>
-          </TableRow>
-          <TableRow key="2">
-            <TableCell>2</TableCell>
-            <TableCell>Title 2</TableCell>
-            <TableCell>Desc 2</TableCell>
-            <TableCell>
-              <Image src={testIMG}></Image>
-            </TableCell>
-            <TableCell>
-              <Button color="warning" variant="shadow" className="mx-3">
-                Edit
-              </Button>
-              <Button color="danger" variant="shadow" className="mx-3">
-                Delete
-              </Button>
-            </TableCell>
-          </TableRow>
-          <TableRow key="3">
-            <TableCell>3</TableCell>
-            <TableCell>Title 3</TableCell>
-            <TableCell>Desc 3</TableCell>
-            <TableCell>
-              <Image src={testIMG}></Image>
-            </TableCell>
-            <TableCell>
-              <Button color="warning" variant="shadow" className="mx-3">
-                Edit
-              </Button>
-              <Button color="danger" variant="shadow" className="mx-3">
-                Delete
-              </Button>
-            </TableCell>
-          </TableRow>
-          <TableRow key="4">
-            <TableCell>4</TableCell>
-            <TableCell>Title 4</TableCell>
-            <TableCell>Desc 4</TableCell>
-            <TableCell>
-              <Image src={testIMG}></Image>
-            </TableCell>
-            <TableCell>
-              <Button color="warning" variant="shadow" className="mx-3">
-                Edit
-              </Button>
-              <Button color="danger" variant="shadow" className="mx-3">
-                Delete
-              </Button>
-            </TableCell>
-          </TableRow>
+          {informationData.map((items) => (
+            <TableRow key={items.Info_ID}>
+              <TableCell>{items.Info_ID}</TableCell>
+              <TableCell>{items.Title}</TableCell>
+              <TableCell className="truncate max-w-xs">
+                {items.Description}
+              </TableCell>
+              <TableCell>
+                <Image
+                  width="200"
+                  src={`http://localhost:5000/info/image?Info_ID=${items.Info_ID}`}
+                ></Image>
+              </TableCell>
+              <TableCell>
+                <Button color="warning" variant="shadow" className="mx-3">
+                  Edit
+                </Button>
+                <Button color="danger" variant="shadow" className="mx-3">
+                  Delete
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
+      <Button className="mt-3" color="primary">
+        Add Information
+      </Button>
     </>
   );
 }

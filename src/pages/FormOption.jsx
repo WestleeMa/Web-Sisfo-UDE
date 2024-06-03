@@ -20,7 +20,7 @@ export default function FormOption() {
     { id: 4, descr: "Pendaftaran Sidang Skripsi" },
   ]);
 
-  const [selectedForm, setSelectedForm] = useState(null);
+  const [selectedForm, setSelectedForm] = useState(1);
   return (
     <>
       <div className="flex flex-wrap gap-2">
@@ -35,6 +35,7 @@ export default function FormOption() {
                 <Select
                   label="Pilih Jenis Layanan"
                   size="sm"
+                  defaultSelectedKeys={selectedForm.toString()}
                   onChange={(e) => setSelectedForm(e.target.value)}
                 >
                   {formOptions.map((el) => (

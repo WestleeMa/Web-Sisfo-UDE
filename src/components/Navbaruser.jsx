@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logoUKRIDA from "../assets/Logo_UKRIDA_300x300.png";
 import userIMG from "../assets/png-transparent-user-profile-computer-icons-profile-heroes-black-silhouette-thumbnail.png";
 import {
@@ -14,6 +14,7 @@ import {
   DropdownMenu,
   DropdownItem,
   Avatar,
+  menuItem,
 } from "@nextui-org/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
@@ -28,15 +29,10 @@ export default function Navbar2() {
     cookie.remove("userData");
     navigate("/login");
   };
-
-  const menuItems = [
+  const [menuItems, setMenuItems] = useState([
     {
       label: "Home",
       href: "/",
-    },
-    {
-      label: "Contacts",
-      href: "#",
     },
     {
       label: "Thesis",
@@ -51,7 +47,21 @@ export default function Navbar2() {
         },
       ],
     },
-  ];
+  ]);
+  useEffect(() => {
+    const data = cookie.get("userData");
+    if (data && data.role === "admin") {
+      setMenuItems((prevMenuItems) => {
+        if (!prevMenuItems.some((item) => item.label === "Manage SISFO")) {
+          return [
+            ...prevMenuItems,
+            { label: "Manage SISFO", href: "adminmng" },
+          ];
+        }
+        return prevMenuItems;
+      });
+    }
+  }, [cookie]);
 
   return (
     <Navbar
@@ -130,20 +140,8 @@ export default function Navbar2() {
               base: "gap-4",
             }}
           >
-            <DropdownItem>
-              <Link color="foreground" href="#">
-                Your Profile
-              </Link>
-            </DropdownItem>
-            <DropdownItem>
-              <Link color="foreground" href="#">
-                Settings
-              </Link>
-            </DropdownItem>
-            <DropdownItem>
-              <Link color="foreground" href="login">
-                Log Out
-              </Link>
+            <DropdownItem onClick={handleLogout}>
+              <Link color="foreground">Log Out</Link>
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
@@ -189,12 +187,12 @@ export default function Navbar2() {
             </NavbarItem>
           )
         )}
-        <NavbarItem>
+        {/* <NavbarItem>
           <Link color="foreground">Profile</Link>
         </NavbarItem>
         <NavbarItem>
           <Link color="foreground">Setting</Link>
-        </NavbarItem>
+        </NavbarItem> */}
         <NavbarItem>
           <Link to="/login" color="foreground" onClick={() => handleLogout}>
             Log out

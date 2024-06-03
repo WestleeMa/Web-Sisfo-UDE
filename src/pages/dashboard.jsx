@@ -1,8 +1,14 @@
 import Banner from "../components/Banner";
-import testImg from "../assets/images.jpg";
-import { infoReq } from "../data/api-sisfo-ude";
+import { getInfo } from "../data/api-sisfo-ude";
 import { useEffect, useState } from "react";
-import { Avatar, Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
+import {
+  Avatar,
+  Card,
+  CardBody,
+  CardHeader,
+  Divider,
+  Image,
+} from "@nextui-org/react";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const LinkCard = () => {
@@ -47,33 +53,21 @@ const LinkCard = () => {
 };
 
 const InformationCard = () => {
-  const informationData = [
-    {
-      title: "Information Title 1",
-      content:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel error molestias in id quasi minus, quam illum ipsum quo repellendus ex, deserunt corrupti enim temporibus esse fuga provident debitis ut fugit veritatis dolorem, sunt amet dolor sequi. Repudiandae eos aliquam pariatur minus, quia ullam! Sed numquam nostrum minima est ut...",
-    },
-    {
-      title: "Information Title 2",
-      content:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel error molestias in id quasi minus, quam illum ipsum quo repellendus ex, deserunt corrupti enim temporibus esse fuga provident debitis ut fugit veritatis dolorem, sunt amet dolor sequi. Repudiandae eos aliquam pariatur minus, quia ullam! Sed numquam nostrum minima est ut...",
-    },
-    {
-      title: "Information Title 3",
-      content:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel error molestias in id quasi minus, quam illum ipsum quo repellendus ex, deserunt corrupti enim temporibus esse fuga provident debitis ut fugit veritatis dolorem, sunt amet dolor sequi. Repudiandae eos aliquam pariatur minus, quia ullam! Sed numquam nostrum minima est ut...",
-    },
-    {
-      title: "Information Title 4",
-      content:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel error molestias in id quasi minus, quam illum ipsum quo repellendus ex, deserunt corrupti enim temporibus esse fuga provident debitis ut fugit veritatis dolorem, sunt amet dolor sequi. Repudiandae eos aliquam pariatur minus, quia ullam! Sed numquam nostrum minima est ut...",
-    },
-    {
-      title: "Information Title 5",
-      content:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel error molestias in id quasi minus, quam illum ipsum quo repellendus ex, deserunt corrupti enim temporibus esse fuga provident debitis ut fugit veritatis dolorem, sunt amet dolor sequi. Repudiandae eos aliquam pariatur minus, quia ullam! Sed numquam nostrum minima est ut...",
-    },
-  ];
+  const [informationData, setInformationData] = useState([]);
+  const fetchData = async () => {
+    try {
+      const data = await getInfo();
+      setInformationData(data);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const navigate = useNavigate();
   return (
     <>
@@ -82,16 +76,24 @@ const InformationCard = () => {
           INFORMATIONS
         </CardHeader>
         <Divider />
-        <CardBody onClick={() => navigate("deets")}>
-          {informationData.map((item, index) => (
-            <div className="mb-2 cursor-pointer  transition duration-300 ease-in-out hover:bg-sky-200">
+        <CardBody>
+          {informationData.map((item) => (
+            <div
+              className="mb-2 cursor-pointer rounded-lg transition duration-300 ease-in-out hover:bg-sky-100"
+              onClick={() => navigate("deets", { state: { item } })}
+            >
               <div className="grid grid-cols-12">
                 <div className="col-span-2">
-                  <img src={testImg}></img>
+                  <Image
+                    src={`http://localhost:5000/info/image?Info_ID=${item.Info_ID}`}
+                    className="object-cover aspect-square "
+                  ></Image>
                 </div>
                 <div className="col-span-10">
-                  <h1 className="font-bold mx-2">{item.title}</h1>
-                  <p className="text-xs text-gray-400 mx-2">{item.content}</p>
+                  <h1 className="font-bold mx-5 mt-3">{item.Title}</h1>
+                  <p className="text-xs text-gray-400 mx-5 mt-3">
+                    {item.Description}
+                  </p>
                 </div>
               </div>
             </div>

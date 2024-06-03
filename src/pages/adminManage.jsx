@@ -5,6 +5,7 @@ import {
   Divider,
   Select,
   SelectItem,
+  select,
 } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -38,7 +39,7 @@ export default function Manage() {
     { id: 5, descr: "Pendaftaran Sidang Skripsi" },
   ]);
 
-  const [selectedTable, setSelectedTable] = useState(null);
+  const [selectedTable, setSelectedTable] = useState(1);
   if (!isAdmin) {
     return null;
   } else {
@@ -55,6 +56,7 @@ export default function Manage() {
                 <Select
                   label="Pilih Jenis Layanan"
                   size="sm"
+                  defaultSelectedKeys={selectedTable.toString()}
                   onChange={(e) => setSelectedTable(e.target.value)}
                 >
                   {tableOptions.map((el) => (
