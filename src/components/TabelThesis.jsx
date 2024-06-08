@@ -57,6 +57,7 @@ function deleteForm(formID, NIM, refreshData) {
 function MngThesis1() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [data, setData] = useState([]);
+  const [modalData, setModalData] = useState();
   console.log(data);
   const fetchData = async () => {
     try {
@@ -105,15 +106,13 @@ function MngThesis1() {
                   variant="shadow"
                   className="mx-3"
                   onPress={onOpen}
+                  onClick={() => {
+                    setModalData(item);
+                  }}
                 >
                   Details
                 </Button>
-                <ModalComp
-                  isOpen={isOpen}
-                  onOpenChange={onOpenChange}
-                  NIM={item.NIM}
-                  formID="1"
-                ></ModalComp>
+
                 <Button
                   color="danger"
                   variant="shadow"
@@ -127,6 +126,12 @@ function MngThesis1() {
           ))}
         </TableBody>
       </Table>
+      <ModalComp
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        formID="1"
+        data={modalData}
+      ></ModalComp>
     </>
   );
 }
@@ -134,6 +139,7 @@ function MngThesis1() {
 function MngThesis2() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [data, setData] = useState([]);
+  const [modalData, setModalData] = useState();
   console.log(data);
   const fetchData = async () => {
     try {
@@ -189,15 +195,10 @@ function MngThesis2() {
                   variant="shadow"
                   className="mx-3"
                   onPress={onOpen}
+                  onClick={() => setModalData(item)}
                 >
                   Details
                 </Button>
-                <ModalComp
-                  isOpen={isOpen}
-                  onOpenChange={onOpenChange}
-                  NIM={item.NIM}
-                  formID="2"
-                ></ModalComp>
                 <Button
                   color="danger"
                   variant="shadow"
@@ -211,6 +212,12 @@ function MngThesis2() {
           ))}
         </TableBody>
       </Table>
+      <ModalComp
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        data={modalData}
+        formID="2"
+      ></ModalComp>
     </>
   );
 }
@@ -218,6 +225,7 @@ function MngThesis2() {
 function MngThesis3() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [data, setData] = useState([]);
+  const [modalData, setModalData] = useState();
   console.log(data);
   const fetchData = async () => {
     try {
@@ -267,15 +275,11 @@ function MngThesis3() {
                   variant="shadow"
                   className="mx-3"
                   onPress={onOpen}
+                  onClick={() => setModalData(item)}
                 >
                   Details
                 </Button>
-                <ModalComp
-                  isOpen={isOpen}
-                  onOpenChange={onOpenChange}
-                  NIM={item.NIM}
-                  formID="3"
-                ></ModalComp>
+
                 <Button
                   color="danger"
                   variant="shadow"
@@ -289,6 +293,12 @@ function MngThesis3() {
           ))}
         </TableBody>
       </Table>
+      <ModalComp
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        data={modalData}
+        formID="3"
+      ></ModalComp>
     </>
   );
 }
@@ -296,6 +306,7 @@ function MngThesis3() {
 function MngThesis4() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [data, setData] = useState([]);
+  const [modalData, setModalData] = useState();
   console.log(data);
   const fetchData = async () => {
     try {
@@ -351,15 +362,10 @@ function MngThesis4() {
                   variant="shadow"
                   className="mx-3"
                   onPress={onOpen}
+                  onClick={() => setModalData(item)}
                 >
                   Details
                 </Button>
-                <ModalComp
-                  isOpen={isOpen}
-                  onOpenChange={onOpenChange}
-                  NIM={item.NIM}
-                  formID="4"
-                ></ModalComp>
                 <Button
                   color="danger"
                   variant="shadow"
@@ -373,6 +379,12 @@ function MngThesis4() {
           ))}
         </TableBody>
       </Table>
+      <ModalComp
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        data={modalData}
+        formID="4"
+      ></ModalComp>
     </>
   );
 }

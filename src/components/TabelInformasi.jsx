@@ -7,12 +7,17 @@ import {
   TableCell,
   Image,
   Button,
+  useDisclosure,
 } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { getInfo } from "../data/api-sisfo-ude";
+import ModalComp from "./modalInfo";
 
 export default function MngInfo() {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [informationData, setInformationData] = useState([]);
+  const [editData, setEditData] = useState();
+
   const fetchData = async () => {
     try {
       const data = await getInfo();
@@ -20,6 +25,14 @@ export default function MngInfo() {
     } catch (error) {
       console.error(error);
       throw error;
+    }
+  };
+
+  const handleModal = (item) => {
+    if (item) {
+      setEditData(item);
+    } else {
+      setEditData(null);
     }
   };
 
@@ -51,9 +64,16 @@ export default function MngInfo() {
                 ></Image>
               </TableCell>
               <TableCell>
-                <Button color="warning" variant="shadow" className="mx-3">
+                <Button
+                  color="warning"
+                  variant="shadow"
+                  className="mx-3"
+                  onPress={onOpen}
+                  onClick={() => handleModal(items)}
+                >
                   Edit
                 </Button>
+
                 <Button color="danger" variant="shadow" className="mx-3">
                   Delete
                 </Button>
@@ -62,9 +82,17 @@ export default function MngInfo() {
           ))}
         </TableBody>
       </Table>
-      <Button className="mt-3" color="primary">
+      <Button
+        className="mt-3"
+        color="primary"
+        onPress={onOpen}
+        onClick={() => handleModal()}
+      >
         Add Information
       </Button>
+      <ModalComp items={editData} isOpen={isOpen} onOpenChange={onOpenChange}>
+        Test
+      </ModalComp>
     </>
   );
 }
