@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "sweetalert2/src/sweetalert2.scss";
 import { NextUIProvider } from "@nextui-org/react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
+// import { ReactQueryDevtools } from "react-query/devtools";
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <CookiesProvider defaultSetOptions={{ path: "/" }} />
     <NextUIProvider>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         <App />
       </QueryClientProvider>
     </NextUIProvider>

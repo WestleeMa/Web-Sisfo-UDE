@@ -24,7 +24,7 @@ export default function Login() {
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
   const navigate = useNavigate();
-  const [NIM, setNIM] = useState("");
+  const [NI, setNI] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
@@ -35,10 +35,10 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const res = await login(NIM, password);
+      const res = await login(NI, password);
       if (
         res === "Please complete the login form" ||
-        res === "Invalid NIM or Password"
+        res === "Invalid Nomor Induk or Password"
       ) {
         toast.error(res);
       } else {
@@ -83,9 +83,9 @@ export default function Login() {
           <CardBody className="gap-5">
             <Input
               type="text"
-              label="NIM"
-              value={NIM}
-              onChange={(e) => setNIM(e.target.value)}
+              label="Nomor Induk"
+              value={NI}
+              onChange={(e) => setNI(e.target.value)}
             />
             <Input
               label="Password"
