@@ -57,6 +57,17 @@ export default function PengajuanJudul() {
     },
   ];
 
+  const objectToFormData = (obj) => {
+    const formData = new FormData();
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        formData.append(key, obj[key]);
+      }
+    }
+    return formData;
+  };
+
+  const handleSubmit = () => {};
   const handleProposalChange = (e) => {
     const file = e.target.files[0];
     setPengajuanJudul({ ...pengajuanJudul, naskah_proposal: file });
@@ -184,7 +195,12 @@ export default function PengajuanJudul() {
             <Radio value={el.id}>{el.descr}</Radio>
           ))}
         </RadioGroup>
-        <Button color="primary" variant="shadow" className="my-3">
+        <Button
+          color="primary"
+          variant="shadow"
+          className="my-3"
+          onClick={() => handleSubmit()}
+        >
           Submit
         </Button>
       </div>

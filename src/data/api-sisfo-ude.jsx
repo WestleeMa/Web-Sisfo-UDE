@@ -14,6 +14,20 @@ const getInfo = async () => {
   }
 };
 
+const sendFormData = async (formID, formData) => {
+  try {
+    if (formID && formData) {
+      const response = await axios.post(`${CONFIG.FORM_ENDPOINT}/${formID}`, {
+        body: formData,
+      });
+      return response;
+    }
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
 const getAllFormData = async (formID, NIM) => {
   try {
     if (NIM) {
@@ -96,4 +110,11 @@ const login = async (NIM, password) => {
     return "Invalid NIM or Password";
   }
 };
-export { getInfo, getAllFormData, downloadFormFiles, deleteFormData, login };
+export {
+  sendFormData,
+  getInfo,
+  getAllFormData,
+  downloadFormFiles,
+  deleteFormData,
+  login,
+};

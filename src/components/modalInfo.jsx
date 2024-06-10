@@ -10,7 +10,6 @@ import {
   Textarea,
   Image,
 } from "@nextui-org/react";
-import { getInfo } from "../data/api-sisfo-ude";
 
 export default function ModalComp({ isOpen, onOpenChange, items }) {
   const [aoe, setAoe] = useState({});
