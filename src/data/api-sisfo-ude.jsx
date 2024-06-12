@@ -14,17 +14,36 @@ const getInfo = async () => {
   }
 };
 
+const getDosen = async () => {
+  try {
+    const response = await axios.get(`${CONFIG.API_ENDPOINT}/dosen`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const sendFormData = async (formID, formData) => {
   try {
     if (formID && formData) {
-      const response = await axios.post(`${CONFIG.FORM_ENDPOINT}/${formID}`, {
-        body: formData,
-      });
+      const response = await axios.post(
+        `${CONFIG.FORM_ENDPOINT}/${formID}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       return response;
     }
   } catch (err) {
     console.error(err);
-    throw err;
+    return err.response;
   }
 };
 
@@ -117,4 +136,5 @@ export {
   downloadFormFiles,
   deleteFormData,
   login,
+  getDosen,
 };

@@ -1,7 +1,12 @@
 import { Input, Radio, RadioGroup, Button } from "@nextui-org/react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { sendFormData, getDosen } from "../data/api-sisfo-ude";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+import { Cookies } from "react-cookie";
 
 export default function PengajuanJudul() {
+  const cookies = new Cookies();
   const [pengajuanJudul, setPengajuanJudul] = useState({});
 
   const radioKajianSkripsi = [
@@ -19,24 +24,15 @@ export default function PengajuanJudul() {
     },
   ];
 
-  const radioDosenPembimbing = [
-    {
-      id: 1,
-      descr: "Ira Rasikawati, Ph.D.",
-    },
-    {
-      id: 2,
-      descr: "Ignasia Yuyun, S.Pd., M.Pd.",
-    },
-    {
-      id: 3,
-      descr: "Hanna Juliaty, S.S., M.A.",
-    },
-    {
-      id: 4,
-      descr: "Didi Sulistiyono, S.S., M.Hum.",
-    },
-  ];
+  const [radioDosenPembimbing, setDosen] = useState([]);
+
+  useEffect(() => {
+    const fetchDosen = async () => {
+      const response = await getDosen();
+      setDosen(response);
+    };
+    fetchDosen();
+  });
 
   const radioSkema = [
     {
@@ -64,13 +60,43 @@ export default function PengajuanJudul() {
         formData.append(key, obj[key]);
       }
     }
+    const NI = cookies.get("userData").Nomor_Induk;
+    formData.append("NIM", NI);
     return formData;
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    try {
+      console.log(pengajuanJudul);
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You can submit again if there's changes",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        reverseButtons: true,
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const formData1 = objectToFormData(pengajuanJudul);
+
+          const response = await sendFormData(1, formData1);
+          if (response.status === 200) {
+            toast.success(response.data);
+          } else {
+            toast.error(response.data);
+          }
+        } else {
+          toast.error("Cancelled");
+        }
+      });
+    } catch (err) {
+      throw err;
+    }
+  };
+
   const handleProposalChange = (e) => {
     const file = e.target.files[0];
-    setPengajuanJudul({ ...pengajuanJudul, naskah_proposal: file });
+    setPengajuanJudul({ ...pengajuanJudul, Draft_naskah: file });
   };
 
   const fileRef = useRef(null);
@@ -84,7 +110,7 @@ export default function PengajuanJudul() {
           onChange={(e) =>
             setPengajuanJudul({
               ...pengajuanJudul,
-              kajian_skripsi: e.target.value,
+              Bidang_kajian: e.target.value,
             })
           }
         >
@@ -100,7 +126,7 @@ export default function PengajuanJudul() {
           onBlur={(e) =>
             setPengajuanJudul({
               ...pengajuanJudul,
-              judul_skripsi: e.target.value,
+              Judul_skripsi: e.target.value,
             })
           }
         ></Input>
@@ -112,10 +138,11 @@ export default function PengajuanJudul() {
           onBlur={(e) =>
             setPengajuanJudul({
               ...pengajuanJudul,
-              prev_judul_skripsi: e.target.value,
+              Judul_sebelum: e.target.value,
             })
           }
         ></Input>
+
         <Input
           label="Dosen Pembimbing Sebelumnya"
           size="sm"
@@ -124,7 +151,7 @@ export default function PengajuanJudul() {
           onBlur={(e) =>
             setPengajuanJudul({
               ...pengajuanJudul,
-              prev_dospem: e.target.value,
+              Dospem_sebelum: e.target.value,
             })
           }
         ></Input>
@@ -136,12 +163,12 @@ export default function PengajuanJudul() {
           onChange={(e) =>
             setPengajuanJudul({
               ...pengajuanJudul,
-              dospem_1: e.target.value,
+              Dospem1: e.target.value,
             })
           }
         >
           {radioDosenPembimbing.map((el) => (
-            <Radio value={el.id}>{el.descr}</Radio>
+            <Radio value={el.key_dosen}>{el.Nama}</Radio>
           ))}
         </RadioGroup>
       </div>
@@ -154,12 +181,12 @@ export default function PengajuanJudul() {
           onChange={(e) =>
             setPengajuanJudul({
               ...pengajuanJudul,
-              dospem_2: e.target.value,
+              Dospem2: e.target.value,
             })
           }
         >
           {radioDosenPembimbing.map((el) => (
-            <Radio value={el.id}>{el.descr}</Radio>
+            <Radio value={el.key_dosen}>{el.Nama}</Radio>
           ))}
         </RadioGroup>
         <Input
@@ -170,7 +197,7 @@ export default function PengajuanJudul() {
           readOnly
           isRequired
           onClick={() => fileRef.current.click()}
-          value={pengajuanJudul?.naskah_proposal?.name}
+          value={pengajuanJudul?.Draft_naskah?.name}
         ></Input>
         <input
           type="file"
@@ -187,7 +214,7 @@ export default function PengajuanJudul() {
           onChange={(e) =>
             setPengajuanJudul({
               ...pengajuanJudul,
-              skema_skripsi: e.target.value,
+              Skema_skripsi: e.target.value,
             })
           }
         >
