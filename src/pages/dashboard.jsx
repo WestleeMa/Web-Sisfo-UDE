@@ -1,5 +1,5 @@
 import Banner from "../components/Banner";
-import { getInfo } from "../data/api-sisfo-ude";
+import { getInfo, getLinks } from "../data/api-sisfo-ude";
 import { useEffect, useState } from "react";
 import {
   Avatar,
@@ -12,28 +12,14 @@ import {
 import { Navigate, useNavigate } from "react-router-dom";
 
 const LinkCard = () => {
-  const LinkItems = [
-    {
-      title: "Link Title 1",
-      url: "#",
-    },
-    {
-      title: "Link Title 2",
-      url: "#",
-    },
-    {
-      title: "Link Title 3",
-      url: "#",
-    },
-    {
-      title: "Link Title 4",
-      url: "#",
-    },
-    {
-      title: "Link Title 5",
-      url: "#",
-    },
-  ];
+  const [LinkItems, setLinks] = useState([]);
+  useEffect(() => {
+    const fetchDatas = async () => {
+      const responseLinks = await getLinks();
+      setLinks(responseLinks);
+    };
+    fetchDatas();
+  }, []);
   return (
     <Card radius="sm">
       <CardHeader className="bg-sky-950 text-white font-bold">LINKS</CardHeader>
@@ -43,7 +29,7 @@ const LinkCard = () => {
           <div key={index} className="mb-2">
             <h1 className="font-bold">{item.title}</h1>
             <a href={item.url} className="cursor-pointer text-blue-500">
-              Link
+              {item.url}
             </a>
           </div>
         ))}

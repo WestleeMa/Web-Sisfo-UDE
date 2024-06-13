@@ -1,57 +1,34 @@
 import { Input, Radio, RadioGroup, Button } from "@nextui-org/react";
 import { useEffect, useRef, useState } from "react";
-import { sendFormData, getDosen } from "../data/api-sisfo-ude";
+import {
+  sendFormData,
+  getDosen,
+  getKajian,
+  getSkema,
+} from "../data/api-sisfo-ude";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { Cookies } from "react-cookie";
 
 export default function PengajuanJudul() {
   const cookies = new Cookies();
-  const [pengajuanJudul, setPengajuanJudul] = useState({});
+  const [formInput, setFormInput] = useState({});
 
-  const radioKajianSkripsi = [
-    {
-      id: 1,
-      descr: "Creative Writing (CREW)",
-    },
-    {
-      id: 2,
-      descr: "TESOL",
-    },
-    {
-      id: 3,
-      descr: "Translation and Interpretation (TIN)",
-    },
-  ];
-
+  const [radioKajianSkripsi, setKajian] = useState([]);
+  const [radioSkema, setSkema] = useState([]);
   const [radioDosenPembimbing, setDosen] = useState([]);
 
   useEffect(() => {
-    const fetchDosen = async () => {
-      const response = await getDosen();
-      setDosen(response);
+    const fetchDatas = async () => {
+      const responseDosen = await getDosen();
+      const responseKajian = await getKajian();
+      const responseSkema = await getSkema();
+      setDosen(responseDosen);
+      setKajian(responseKajian);
+      setSkema(responseSkema);
     };
-    fetchDosen();
-  });
-
-  const radioSkema = [
-    {
-      id: 1,
-      descr: "Library Study",
-    },
-    {
-      id: 2,
-      descr: "Final Project",
-    },
-    {
-      id: 3,
-      descr: "Field Study",
-    },
-    {
-      id: 4,
-      descr: "Literature Review",
-    },
-  ];
+    fetchDatas();
+  }, []);
 
   const objectToFormData = (obj) => {
     const formData = new FormData();
@@ -67,17 +44,16 @@ export default function PengajuanJudul() {
 
   const handleSubmit = () => {
     try {
-      console.log(pengajuanJudul);
       Swal.fire({
         title: "Are you sure?",
-        text: "You can submit again if there's changes",
+        text: "You can submit again if there's any changes",
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Yes",
         reverseButtons: true,
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const formData1 = objectToFormData(pengajuanJudul);
+          const formData1 = objectToFormData(formInput);
 
           const response = await sendFormData(1, formData1);
           if (response.status === 200) {
@@ -96,7 +72,7 @@ export default function PengajuanJudul() {
 
   const handleProposalChange = (e) => {
     const file = e.target.files[0];
-    setPengajuanJudul({ ...pengajuanJudul, Draft_naskah: file });
+    setFormInput({ ...formInput, Draft_naskah: file });
   };
 
   const fileRef = useRef(null);
@@ -108,8 +84,8 @@ export default function PengajuanJudul() {
           size="sm"
           isRequired
           onChange={(e) =>
-            setPengajuanJudul({
-              ...pengajuanJudul,
+            setFormInput({
+              ...formInput,
               Bidang_kajian: e.target.value,
             })
           }
@@ -124,8 +100,8 @@ export default function PengajuanJudul() {
           className="my-3"
           isRequired
           onBlur={(e) =>
-            setPengajuanJudul({
-              ...pengajuanJudul,
+            setFormInput({
+              ...formInput,
               Judul_skripsi: e.target.value,
             })
           }
@@ -136,8 +112,8 @@ export default function PengajuanJudul() {
           className="mt-3"
           placeholder="(Isi bila mengusulkan ganti judul)"
           onBlur={(e) =>
-            setPengajuanJudul({
-              ...pengajuanJudul,
+            setFormInput({
+              ...formInput,
               Judul_sebelum: e.target.value,
             })
           }
@@ -149,8 +125,8 @@ export default function PengajuanJudul() {
           className="mt-3"
           placeholder="(Isi bila mengajukan ganti dosen pembimbing dan telah mendapatkan izin dari dospem lama bahwa hendak mengganti dospem)"
           onBlur={(e) =>
-            setPengajuanJudul({
-              ...pengajuanJudul,
+            setFormInput({
+              ...formInput,
               Dospem_sebelum: e.target.value,
             })
           }
@@ -161,8 +137,8 @@ export default function PengajuanJudul() {
           className="mt-3"
           isRequired
           onChange={(e) =>
-            setPengajuanJudul({
-              ...pengajuanJudul,
+            setFormInput({
+              ...formInput,
               Dospem1: e.target.value,
             })
           }
@@ -179,8 +155,8 @@ export default function PengajuanJudul() {
           className="mt-3"
           isRequired
           onChange={(e) =>
-            setPengajuanJudul({
-              ...pengajuanJudul,
+            setFormInput({
+              ...formInput,
               Dospem2: e.target.value,
             })
           }
@@ -197,7 +173,7 @@ export default function PengajuanJudul() {
           readOnly
           isRequired
           onClick={() => fileRef.current.click()}
-          value={pengajuanJudul?.Draft_naskah?.name}
+          value={formInput?.Draft_naskah?.name}
         ></Input>
         <input
           type="file"
@@ -212,8 +188,8 @@ export default function PengajuanJudul() {
           className="mt-3"
           isRequired
           onChange={(e) =>
-            setPengajuanJudul({
-              ...pengajuanJudul,
+            setFormInput({
+              ...formInput,
               Skema_skripsi: e.target.value,
             })
           }

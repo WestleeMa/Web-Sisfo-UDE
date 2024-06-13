@@ -10,8 +10,10 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { useEffect, useState } from "react";
-import { getInfo } from "../data/api-sisfo-ude";
+import { deleteInfo, getInfo } from "../data/api-sisfo-ude";
 import ModalComp from "./modalInfo";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 export default function MngInfo() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -36,9 +38,31 @@ export default function MngInfo() {
     }
   };
 
+  const handleDelete = async (Info_ID) => {
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to restore deleted data(s)",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        reverseButtons: true,
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const response = await deleteInfo(Info_ID);
+          toast.success(response);
+        } else {
+          toast.error("Information Deletion Cancelled.");
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
     fetchData();
-  }, []);
+  });
+
   return (
     <>
       <Table aria-label="Example static collection table">
@@ -74,7 +98,12 @@ export default function MngInfo() {
                   Edit
                 </Button>
 
-                <Button color="danger" variant="shadow" className="mx-3">
+                <Button
+                  color="danger"
+                  variant="shadow"
+                  className="mx-3"
+                  onClick={() => handleDelete(items.Info_ID)}
+                >
                   Delete
                 </Button>
               </TableCell>
@@ -90,9 +119,11 @@ export default function MngInfo() {
       >
         Add Information
       </Button>
-      <ModalComp items={editData} isOpen={isOpen} onOpenChange={onOpenChange}>
-        Test
-      </ModalComp>
+      <ModalComp
+        items={editData}
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+      ></ModalComp>
     </>
   );
 }

@@ -27,6 +27,45 @@ const getDosen = async () => {
   }
 };
 
+const getLinks = async () => {
+  try {
+    const response = await axios.get(`${CONFIG.API_ENDPOINT}/links`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getKajian = async () => {
+  try {
+    const response = await axios.get(`${CONFIG.API_ENDPOINT}/kajian`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getSkema = async () => {
+  try {
+    const response = await axios.get(`${CONFIG.API_ENDPOINT}/skema`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const sendFormData = async (formID, formData) => {
   try {
     if (formID && formData) {
@@ -129,6 +168,40 @@ const login = async (NIM, password) => {
     return "Invalid NIM or Password";
   }
 };
+
+const addOrEditInfo = async (formData) => {
+  try {
+    if (formData) {
+      const response = await axios.post(
+        `${CONFIG.INFO_ENDPOINT}/aoe`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response;
+    }
+  } catch (err) {
+    console.error(err);
+    return err.response;
+  }
+};
+
+const deleteInfo = async (Info_ID) => {
+  try {
+    if (Info_ID) {
+      const response = await axios.delete(
+        `${CONFIG.INFO_ENDPOINT}?Info_ID=${Info_ID}`
+      );
+      return response.data;
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
 export {
   sendFormData,
   getInfo,
@@ -137,4 +210,9 @@ export {
   deleteFormData,
   login,
   getDosen,
+  getKajian,
+  getSkema,
+  addOrEditInfo,
+  deleteInfo,
+  getLinks,
 };
