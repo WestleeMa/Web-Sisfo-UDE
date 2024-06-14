@@ -15,7 +15,7 @@ import { getAllFormData, deleteFormData } from "../data/api-sisfo-ude";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function deleteForm(formID, NIM, refreshData) {
+function deleteForm(formID, NIM) {
   try {
     Swal.fire({
       title: "Are you sure?",
@@ -36,7 +36,6 @@ function deleteForm(formID, NIM, refreshData) {
           theme: "light",
           transition: Bounce,
         });
-        refreshData(NIM);
       } else {
         toast.error("Form Data Deletion Cancelled.", {
           position: "top-right",
@@ -58,7 +57,6 @@ function MngThesis1() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [data, setData] = useState([]);
   const [modalData, setModalData] = useState();
-  console.log(data);
   const fetchData = async () => {
     try {
       const result = await getAllFormData(1);
@@ -67,12 +65,9 @@ function MngThesis1() {
       console.error("Error fetching data:", error);
     }
   };
-  const updateDataState = (NIM) => {
-    setData((prevData) => prevData.filter((item) => item.NIM !== NIM));
-  };
   useEffect(() => {
     fetchData();
-  }, []);
+  });
   return (
     <>
       <Table aria-label="Example static collection table">
@@ -86,6 +81,7 @@ function MngThesis1() {
           <TableColumn>Dosen Pembimbing 2</TableColumn>
           <TableColumn>Skema Skripsi</TableColumn>
           <TableColumn>Timestamps</TableColumn>
+          <TableColumn>Form Approval</TableColumn>
           <TableColumn>Action</TableColumn>
         </TableHeader>
         <TableBody>
@@ -96,10 +92,55 @@ function MngThesis1() {
               <TableCell>{item.Nama}</TableCell>
               <TableCell>{item.Bidang_kajian}</TableCell>
               <TableCell>{item.Judul_skripsi}</TableCell>
-              <TableCell>{item.Dospem1}</TableCell>
-              <TableCell>{item.Dospem2}</TableCell>
+              <TableCell>
+                {item.Dospem1}
+                {item.approval_dosen1 === 0 ? (
+                  <>
+                    <p className="text-yellow-600">Pending</p>
+                  </>
+                ) : item.approval_dosen1 === 1 ? (
+                  <>
+                    <p className="text-green-600">Approved</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-red-600">Rejected</p>
+                  </>
+                )}
+              </TableCell>
+              <TableCell>
+                {item.Dospem2}{" "}
+                {item.approval_dosen2 === 0 ? (
+                  <>
+                    <p className="text-yellow-600">Pending</p>
+                  </>
+                ) : item.approval_dosen2 === 1 ? (
+                  <>
+                    <p className="text-green-600">Approved</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-red-600">Rejected</p>
+                  </>
+                )}
+              </TableCell>
               <TableCell>{item.Skema_skripsi}</TableCell>
               <TableCell>{item.Timestamps}</TableCell>
+              <TableCell>
+                {item.form_approval === 0 ? (
+                  <>
+                    <p className="text-yellow-600">Pending</p>
+                  </>
+                ) : item.form_approval === 1 ? (
+                  <>
+                    <p className="text-green-600">Approved</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-red-600">Rejected</p>
+                  </>
+                )}
+              </TableCell>
               <TableCell>
                 <Button
                   color="warning"
@@ -117,7 +158,7 @@ function MngThesis1() {
                   color="danger"
                   variant="shadow"
                   className="mx-3"
-                  onPress={() => deleteForm(1, item.NIM, updateDataState)}
+                  onPress={() => deleteForm(1, item.NIM)}
                 >
                   Delete
                 </Button>
@@ -140,7 +181,6 @@ function MngThesis2() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [data, setData] = useState([]);
   const [modalData, setModalData] = useState();
-  console.log(data);
   const fetchData = async () => {
     try {
       const result = await getAllFormData(2);
@@ -149,12 +189,9 @@ function MngThesis2() {
       console.error("Error fetching data:", error);
     }
   };
-  const updateDataState = (NIM) => {
-    setData((prevData) => prevData.filter((item) => item.NIM !== NIM));
-  };
   useEffect(() => {
     fetchData();
-  }, []);
+  });
   return (
     <>
       <Table aria-label="Example static collection table">
@@ -203,7 +240,7 @@ function MngThesis2() {
                   color="danger"
                   variant="shadow"
                   className="mx-3"
-                  onPress={() => deleteForm(2, item.NIM, updateDataState)}
+                  onPress={() => deleteForm(2, item.NIM)}
                 >
                   Delete
                 </Button>
@@ -226,7 +263,6 @@ function MngThesis3() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [data, setData] = useState([]);
   const [modalData, setModalData] = useState();
-  console.log(data);
   const fetchData = async () => {
     try {
       const result = await getAllFormData(3);
@@ -234,9 +270,6 @@ function MngThesis3() {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  };
-  const updateDataState = (NIM) => {
-    setData((prevData) => prevData.filter((item) => item.NIM !== NIM));
   };
   useEffect(() => {
     fetchData();
@@ -284,7 +317,7 @@ function MngThesis3() {
                   color="danger"
                   variant="shadow"
                   className="mx-3"
-                  onPress={() => deleteForm(3, item.NIM, updateDataState)}
+                  onPress={() => deleteForm(3, item.NIM)}
                 >
                   Delete
                 </Button>
@@ -307,7 +340,6 @@ function MngThesis4() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [data, setData] = useState([]);
   const [modalData, setModalData] = useState();
-  console.log(data);
   const fetchData = async () => {
     try {
       const result = await getAllFormData(4);
@@ -315,9 +347,6 @@ function MngThesis4() {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  };
-  const updateDataState = (NIM) => {
-    setData((prevData) => prevData.filter((item) => item.NIM !== NIM));
   };
   useEffect(() => {
     fetchData();
@@ -370,7 +399,7 @@ function MngThesis4() {
                   color="danger"
                   variant="shadow"
                   className="mx-3"
-                  onPress={() => deleteForm(4, item.NIM, updateDataState)}
+                  onPress={() => deleteForm(4, item.NIM)}
                 >
                   Delete
                 </Button>

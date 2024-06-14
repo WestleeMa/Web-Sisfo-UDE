@@ -7,7 +7,8 @@ import {
   ModalFooter,
   Button,
 } from "@nextui-org/react";
-import { downloadFormFiles } from "../data/api-sisfo-ude";
+import { approveDosen, downloadFormFiles } from "../data/api-sisfo-ude";
+import { toast } from "react-toastify";
 
 export default function ModalComp({ isOpen, onOpenChange, formID, data }) {
   const modalBody = (formID, data) => {
@@ -21,6 +22,20 @@ export default function ModalComp({ isOpen, onOpenChange, formID, data }) {
         console.error("Error downloading file:", error);
       }
     };
+
+    const handleApproval = async (formID, NIM, approval) => {
+      try {
+        const response = await approveDosen(formID, NIM, approval);
+        if (response === "Updated") {
+          toast.success(response);
+        } else {
+          toast.error(response);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
     if (data) {
       switch (formID) {
         case "1":
@@ -51,9 +66,41 @@ export default function ModalComp({ isOpen, onOpenChange, formID, data }) {
                 <p>
                   Dosen Pembimbing 1: <span>{data.Dospem1}</span>
                 </p>
+                <Button
+                  color="primary"
+                  onClick={() =>
+                    handleApproval(1, data.NIM, { approval_dosen1: 1 })
+                  }
+                >
+                  Approve
+                </Button>
+                <Button
+                  color="danger"
+                  onClick={() =>
+                    handleApproval(1, data.NIM, { approval_dosen1: 2 })
+                  }
+                >
+                  Reject
+                </Button>
                 <p>
                   Dosen Pembimbing 2: <span>{data.Dospem2}</span>
                 </p>
+                <Button
+                  color="primary"
+                  onClick={() =>
+                    handleApproval(1, data.NIM, { approval_dosen2: 1 })
+                  }
+                >
+                  Approve
+                </Button>
+                <Button
+                  color="danger"
+                  onClick={() =>
+                    handleApproval(1, data.NIM, { approval_dosen2: 2 })
+                  }
+                >
+                  Reject
+                </Button>
                 <p>
                   Draft naskah:{" "}
                   <Button onClick={() => handleDownload(1, data.NIM)}>
@@ -66,6 +113,26 @@ export default function ModalComp({ isOpen, onOpenChange, formID, data }) {
                 <p>
                   Timestamps: <span>{data.Timestamps}</span>
                 </p>
+                {data.approval_dosen1 === 1 && data.approval_dosen2 === 1 ? (
+                  <>
+                    <Button
+                      color="success"
+                      onClick={() =>
+                        handleApproval(1, data.NIM, { form_approval: 1 })
+                      }
+                    >
+                      Approve this submission
+                    </Button>
+                    <Button
+                      color="danger"
+                      onClick={() =>
+                        handleApproval(1, data.NIM, { form_approval: 2 })
+                      }
+                    >
+                      Reject this submission
+                    </Button>
+                  </>
+                ) : null}
               </ModalBody>
             </>
           );

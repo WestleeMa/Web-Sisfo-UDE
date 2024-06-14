@@ -202,6 +202,26 @@ const deleteInfo = async (Info_ID) => {
     throw error;
   }
 };
+
+const approveDosen = async (formID, NIM, approval) => {
+  try {
+    if ((formID, NIM, approval)) {
+      const response = await axios.post(
+        `${CONFIG.FORM_ENDPOINT}/approve`,
+        {
+          NIM,
+          formID,
+          approval,
+        },
+        { headers: "application/json" }
+      );
+      return response.data;
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
 export {
   sendFormData,
   getInfo,
@@ -215,4 +235,5 @@ export {
   addOrEditInfo,
   deleteInfo,
   getLinks,
+  approveDosen,
 };
