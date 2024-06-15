@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import logoUKRIDA from "../assets/Logo_UKRIDA_300x300.png";
-import userIMG from "../assets/png-transparent-user-profile-computer-icons-profile-heroes-black-silhouette-thumbnail.png";
 import {
   Navbar,
   NavbarBrand,
@@ -132,7 +131,12 @@ export default function Navbar2() {
         <Dropdown>
           <NavbarItem className="cursor-pointer">
             <DropdownTrigger>
-              <Avatar size="sm" src={userIMG} />
+              <Avatar
+                size="sm"
+                src={`http://localhost:5000/userImg?Nomor_Induk=${
+                  cookie.get("userData").Nomor_Induk
+                }`}
+              />
             </DropdownTrigger>
           </NavbarItem>
           <DropdownMenu
@@ -140,9 +144,10 @@ export default function Navbar2() {
               base: "gap-4",
             }}
           >
-            <DropdownItem onClick={handleLogout}>
-              <Link color="foreground">Log Out</Link>
+            <DropdownItem onClick={() => navigate("/changepass")}>
+              Change Password
             </DropdownItem>
+            <DropdownItem onClick={handleLogout}>Log Out</DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </NavbarContent>
@@ -187,16 +192,15 @@ export default function Navbar2() {
             </NavbarItem>
           )
         )}
-        {/* <NavbarItem>
-          <Link color="foreground">Profile</Link>
+        <NavbarItem onClick={() => navigate("/changepass")}>
+          Change Password
         </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground">Setting</Link>
-        </NavbarItem> */}
-        <NavbarItem>
-          <Link to="/login" color="foreground" onClick={() => handleLogout}>
-            Log out
-          </Link>
+        <NavbarItem
+          onClick={() => {
+            handleLogout;
+          }}
+        >
+          Log out
         </NavbarItem>
       </NavbarMenu>
     </Navbar>

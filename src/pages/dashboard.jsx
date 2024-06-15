@@ -76,8 +76,8 @@ const InformationCard = () => {
                   ></Image>
                 </div>
                 <div className="col-span-10">
-                  <h1 className="font-bold mx-5 mt-3">{item.Title}</h1>
-                  <p className="text-xs text-gray-400 mx-5 mt-3">
+                  <h1 className="font-bold mx-5 text-xl mt-3">{item.Title}</h1>
+                  <p className=" truncate text-gray-400 mx-5 mt-3">
                     {item.Description}
                   </p>
                 </div>

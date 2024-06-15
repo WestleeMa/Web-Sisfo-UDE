@@ -208,6 +208,7 @@ function MngThesis2() {
           <TableColumn>Dosen PA</TableColumn>
           <TableColumn>Link Google</TableColumn>
           <TableColumn>Timestamps</TableColumn>
+          <TableColumn>Form Approval</TableColumn>
           <TableColumn>Action</TableColumn>
         </TableHeader>
         <TableBody>
@@ -219,13 +220,87 @@ function MngThesis2() {
               <TableCell>{item.Bidang_kajian}</TableCell>
               <TableCell>{item.Judul_skripsi}</TableCell>
               <TableCell>{item.Skema_skripsi}</TableCell>
-              <TableCell>{item.Penguji1}</TableCell>
-              <TableCell>{item.Penguji2}</TableCell>
-              <TableCell>{item.Penguji3}</TableCell>
-              <TableCell>{item.PA}</TableCell>
+              <TableCell>
+                {item.Penguji1}
+                {item.approval_dosen1 === 0 ? (
+                  <>
+                    <p className="text-yellow-600">Pending</p>
+                  </>
+                ) : item.approval_dosen1 === 1 ? (
+                  <>
+                    <p className="text-green-600">Approved</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-red-600">Rejected</p>
+                  </>
+                )}
+              </TableCell>
+              <TableCell>
+                {item.Penguji2}
+                {item.approval_dosen2 === 0 ? (
+                  <>
+                    <p className="text-yellow-600">Pending</p>
+                  </>
+                ) : item.approval_dosen2 === 1 ? (
+                  <>
+                    <p className="text-green-600">Approved</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-red-600">Rejected</p>
+                  </>
+                )}
+              </TableCell>
+              <TableCell>
+                {item.Penguji3}
+                {item.approval_dosen3 === 0 ? (
+                  <>
+                    <p className="text-yellow-600">Pending</p>
+                  </>
+                ) : item.approval_dosen3 === 1 ? (
+                  <>
+                    <p className="text-green-600">Approved</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-red-600">Rejected</p>
+                  </>
+                )}
+              </TableCell>
+              <TableCell>
+                {item.PA}
+                {item.approval_dosen4 === 0 ? (
+                  <>
+                    <p className="text-yellow-600">Pending</p>
+                  </>
+                ) : item.approval_dosen4 === 1 ? (
+                  <>
+                    <p className="text-green-600">Approved</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-red-600">Rejected</p>
+                  </>
+                )}
+              </TableCell>
               <TableCell>{item.Link_google}</TableCell>
               <TableCell>{item.Timestamps}</TableCell>
-
+              <TableCell>
+                {item.form_approval === 0 ? (
+                  <>
+                    <p className="text-yellow-600">Pending</p>
+                  </>
+                ) : item.form_approval === 1 ? (
+                  <>
+                    <p className="text-green-600">Approved</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-red-600">Rejected</p>
+                  </>
+                )}
+              </TableCell>
               <TableCell>
                 <Button
                   color="warning"
@@ -350,7 +425,7 @@ function MngThesis4() {
   };
   useEffect(() => {
     fetchData();
-  }, []);
+  });
   return (
     <>
       <Table aria-label="Example static collection table">
@@ -367,6 +442,7 @@ function MngThesis4() {
           <TableColumn>Link Google Docs</TableColumn>
           <TableColumn>Link Video Presentasi</TableColumn>
           <TableColumn>Timestamps</TableColumn>
+          <TableColumn>Form Approval</TableColumn>
           <TableColumn>Action</TableColumn>
         </TableHeader>
         <TableBody>
@@ -377,13 +453,88 @@ function MngThesis4() {
               <TableCell>{item.Nama}</TableCell>
               <TableCell>{item.Bidang_kajian}</TableCell>
               <TableCell>{item.Skema_skripsi}</TableCell>
-              <TableCell>{item.Penguji1}</TableCell>
-              <TableCell>{item.Penguji2}</TableCell>
-              <TableCell>{item.Penguji3}</TableCell>
-              <TableCell>{item.PA}</TableCell>
+              <TableCell>
+                {item.Penguji1}
+                {item.approval_dosen1 === 0 ? (
+                  <>
+                    <p className="text-yellow-600">Pending</p>
+                  </>
+                ) : item.approval_dosen1 === 1 ? (
+                  <>
+                    <p className="text-green-600">Approved</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-red-600">Rejected</p>
+                  </>
+                )}
+              </TableCell>
+              <TableCell>
+                {item.Penguji2}
+                {item.approval_dosen2 === 0 ? (
+                  <>
+                    <p className="text-yellow-600">Pending</p>
+                  </>
+                ) : item.approval_dosen2 === 1 ? (
+                  <>
+                    <p className="text-green-600">Approved</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-red-600">Rejected</p>
+                  </>
+                )}
+              </TableCell>
+              <TableCell>
+                {item.Penguji3}
+                {item.approval_dosen3 === 0 ? (
+                  <>
+                    <p className="text-yellow-600">Pending</p>
+                  </>
+                ) : item.approval_dosen3 === 1 ? (
+                  <>
+                    <p className="text-green-600">Approved</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-red-600">Rejected</p>
+                  </>
+                )}
+              </TableCell>
+              <TableCell>
+                {item.PA}
+                {item.approval_dosen4 === 0 ? (
+                  <>
+                    <p className="text-yellow-600">Pending</p>
+                  </>
+                ) : item.approval_dosen4 === 1 ? (
+                  <>
+                    <p className="text-green-600">Approved</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-red-600">Rejected</p>
+                  </>
+                )}
+              </TableCell>
               <TableCell>{item.Link_Google_docs}</TableCell>
               <TableCell>{item.Link_Video_presentasi}</TableCell>
               <TableCell>{item.Timestamps}</TableCell>
+              <TableCell>
+                {item.form_approval === 0 ? (
+                  <>
+                    <p className="text-yellow-600">Pending</p>
+                  </>
+                ) : item.form_approval === 1 ? (
+                  <>
+                    <p className="text-green-600">Approved</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-red-600">Rejected</p>
+                  </>
+                )}
+              </TableCell>
 
               <TableCell>
                 <Button

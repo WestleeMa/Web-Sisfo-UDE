@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Cookies } from "react-cookie";
 import MngInfo from "../components/TabelInformasi";
+import MngUser from "../components/TabelUsers";
 import {
   MngThesis1,
   MngThesis2,
@@ -37,6 +38,7 @@ export default function Manage() {
     { id: 3, descr: "Pendaftaran Ujian Seminar of Thesis Proposal" },
     { id: 4, descr: "Pengumpulan File: Syarat Sidang Skripsi" },
     { id: 5, descr: "Pendaftaran Sidang Skripsi" },
+    { id: 6, descr: "Users" },
   ]);
 
   const [selectedTable, setSelectedTable] = useState(1);
@@ -81,6 +83,7 @@ export default function Manage() {
               {selectedTable == 3 && <MngThesis2 />}
               {selectedTable == 4 && <MngThesis3 />}
               {selectedTable == 5 && <MngThesis4 />}
+              {selectedTable == 6 && <MngUser />}
             </CardBody>
           </Card>
         )}

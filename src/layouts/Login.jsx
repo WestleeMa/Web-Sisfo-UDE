@@ -35,27 +35,28 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const res = await login(NI, password);
-      if (
-        res === "Please complete the login form" ||
-        res === "Invalid Nomor Induk or Password"
-      ) {
-        toast.error(res);
+      if (NI && password) {
+        const res = await login(NI, password);
+        if (res.status === 401) {
+          toast.error("Invalid Nomor Induk or Password");
+        } else {
+          const decoded = jwtDecode(res);
+
+          cookie.set("userData", decoded, {
+            expires: new Date(Date.now() + decoded.exp),
+          });
+
+          Swal.fire({
+            title: "Login Success",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1000,
+          }).then(() => {
+            navigate("/");
+          });
+        }
       } else {
-        const decoded = jwtDecode(res);
-
-        cookie.set("userData", decoded, {
-          expires: new Date(Date.now() + decoded.exp),
-        });
-
-        Swal.fire({
-          title: "Login Success",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1000,
-        }).then(() => {
-          navigate("/");
-        });
+        toast.error("Please complete the login form");
       }
     } catch (error) {
       console.error(error);
@@ -65,8 +66,8 @@ export default function Login() {
   return (
     <>
       <ToastContainer />
-      <div className="p-[18rem] pb-[40rem]">
-        <Card className="max-w-[400px] m-auto">
+      <div className="pt-[20rem] pb-[22rem] md:pb-[40rem]">
+        <Card className="max-w-[360px] m-auto">
           <CardHeader className="flex gap-3">
             <Image
               alt="nextui logo"

@@ -66,41 +66,45 @@ export default function ModalComp({ isOpen, onOpenChange, formID, data }) {
                 <p>
                   Dosen Pembimbing 1: <span>{data.Dospem1}</span>
                 </p>
-                <Button
-                  color="primary"
-                  onClick={() =>
-                    handleApproval(1, data.NIM, { approval_dosen1: 1 })
-                  }
-                >
-                  Approve
-                </Button>
-                <Button
-                  color="danger"
-                  onClick={() =>
-                    handleApproval(1, data.NIM, { approval_dosen1: 2 })
-                  }
-                >
-                  Reject
-                </Button>
+                <div className="flex gap-2">
+                  <Button
+                    color="primary"
+                    onClick={() =>
+                      handleApproval(1, data.NIM, { approval_dosen1: 1 })
+                    }
+                  >
+                    Approve
+                  </Button>
+                  <Button
+                    color="danger"
+                    onClick={() =>
+                      handleApproval(1, data.NIM, { approval_dosen1: 2 })
+                    }
+                  >
+                    Reject
+                  </Button>
+                </div>
                 <p>
                   Dosen Pembimbing 2: <span>{data.Dospem2}</span>
                 </p>
-                <Button
-                  color="primary"
-                  onClick={() =>
-                    handleApproval(1, data.NIM, { approval_dosen2: 1 })
-                  }
-                >
-                  Approve
-                </Button>
-                <Button
-                  color="danger"
-                  onClick={() =>
-                    handleApproval(1, data.NIM, { approval_dosen2: 2 })
-                  }
-                >
-                  Reject
-                </Button>
+                <div className="flex gap-2">
+                  <Button
+                    color="primary"
+                    onClick={() =>
+                      handleApproval(1, data.NIM, { approval_dosen2: 1 })
+                    }
+                  >
+                    Approve
+                  </Button>
+                  <Button
+                    color="danger"
+                    onClick={() =>
+                      handleApproval(1, data.NIM, { approval_dosen2: 2 })
+                    }
+                  >
+                    Reject
+                  </Button>
+                </div>
                 <p>
                   Draft naskah:{" "}
                   <Button onClick={() => handleDownload(1, data.NIM)}>
@@ -113,26 +117,24 @@ export default function ModalComp({ isOpen, onOpenChange, formID, data }) {
                 <p>
                   Timestamps: <span>{data.Timestamps}</span>
                 </p>
-                {data.approval_dosen1 === 1 && data.approval_dosen2 === 1 ? (
-                  <>
-                    <Button
-                      color="success"
-                      onClick={() =>
-                        handleApproval(1, data.NIM, { form_approval: 1 })
-                      }
-                    >
-                      Approve this submission
-                    </Button>
-                    <Button
-                      color="danger"
-                      onClick={() =>
-                        handleApproval(1, data.NIM, { form_approval: 2 })
-                      }
-                    >
-                      Reject this submission
-                    </Button>
-                  </>
-                ) : null}
+                <div className="flex gap-2">
+                  <Button
+                    color="success"
+                    onClick={() =>
+                      handleApproval(1, data.NIM, { form_approval: 1 })
+                    }
+                  >
+                    Approve this submission
+                  </Button>
+                  <Button
+                    color="danger"
+                    onClick={() =>
+                      handleApproval(1, data.NIM, { form_approval: 2 })
+                    }
+                  >
+                    Reject this submission
+                  </Button>
+                </div>
               </ModalBody>
             </>
           );
@@ -164,15 +166,87 @@ export default function ModalComp({ isOpen, onOpenChange, formID, data }) {
                 <p>
                   Dosen Penguji 1: <span>{data.Penguji1}</span>
                 </p>
+                <div className="flex gap-2">
+                  <Button
+                    color="primary"
+                    onClick={() =>
+                      handleApproval(2, data.NIM, { approval_dosen1: 1 })
+                    }
+                  >
+                    Approve
+                  </Button>
+                  <Button
+                    color="danger"
+                    onClick={() =>
+                      handleApproval(2, data.NIM, { approval_dosen1: 2 })
+                    }
+                  >
+                    Reject
+                  </Button>
+                </div>
                 <p>
                   Dosen Penguji 2: <span>{data.Penguji2}</span>
                 </p>
+                <div className="flex gap-2">
+                  <Button
+                    color="primary"
+                    onClick={() =>
+                      handleApproval(2, data.NIM, { approval_dosen2: 1 })
+                    }
+                  >
+                    Approve
+                  </Button>
+                  <Button
+                    color="danger"
+                    onClick={() =>
+                      handleApproval(2, data.NIM, { approval_dosen2: 2 })
+                    }
+                  >
+                    Reject
+                  </Button>
+                </div>
                 <p>
                   Dosen Penguji 3: <span>{data.Penguji3}</span>
                 </p>
+                <div className="flex gap-2">
+                  <Button
+                    color="primary"
+                    onClick={() =>
+                      handleApproval(2, data.NIM, { approval_dosen3: 1 })
+                    }
+                  >
+                    Approve
+                  </Button>
+                  <Button
+                    color="danger"
+                    onClick={() =>
+                      handleApproval(2, data.NIM, { approval_dosen3: 2 })
+                    }
+                  >
+                    Reject
+                  </Button>
+                </div>
                 <p>
                   Dosen PA: <span>{data.PA}</span>
                 </p>
+                <div className="flex gap-2">
+                  <Button
+                    color="primary"
+                    onClick={() =>
+                      handleApproval(2, data.NIM, { approval_dosen4: 1 })
+                    }
+                  >
+                    Approve
+                  </Button>
+                  <Button
+                    color="danger"
+                    onClick={() =>
+                      handleApproval(2, data.NIM, { approval_dosen4: 2 })
+                    }
+                  >
+                    Reject
+                  </Button>
+                </div>
                 <p>
                   Bukti Approval:
                   <Button onClick={() => handleDownload(2, data.NIM)}>
@@ -188,6 +262,24 @@ export default function ModalComp({ isOpen, onOpenChange, formID, data }) {
                 <p>
                   Timestamps: <span>{data.Timestamps}</span>
                 </p>
+                <div className="flex gap-2">
+                  <Button
+                    color="success"
+                    onClick={() =>
+                      handleApproval(2, data.NIM, { form_approval: 1 })
+                    }
+                  >
+                    Approve this submission
+                  </Button>
+                  <Button
+                    color="danger"
+                    onClick={() =>
+                      handleApproval(2, data.NIM, { form_approval: 2 })
+                    }
+                  >
+                    Reject this submission
+                  </Button>
+                </div>
               </ModalBody>
             </>
           );
@@ -265,15 +357,87 @@ export default function ModalComp({ isOpen, onOpenChange, formID, data }) {
                 <p>
                   Dosen Penguji 1: <span>{data.Penguji1}</span>
                 </p>
+                <div className="flex gap-2">
+                  <Button
+                    color="primary"
+                    onClick={() =>
+                      handleApproval(4, data.NIM, { approval_dosen1: 1 })
+                    }
+                  >
+                    Approve
+                  </Button>
+                  <Button
+                    color="danger"
+                    onClick={() =>
+                      handleApproval(4, data.NIM, { approval_dosen1: 2 })
+                    }
+                  >
+                    Reject
+                  </Button>
+                </div>
                 <p>
                   Dosen Penguji 2: <span>{data.Penguji2}</span>
                 </p>
+                <div className="flex gap-2">
+                  <Button
+                    color="primary"
+                    onClick={() =>
+                      handleApproval(4, data.NIM, { approval_dosen2: 1 })
+                    }
+                  >
+                    Approve
+                  </Button>
+                  <Button
+                    color="danger"
+                    onClick={() =>
+                      handleApproval(4, data.NIM, { approval_dosen2: 2 })
+                    }
+                  >
+                    Reject
+                  </Button>
+                </div>
                 <p>
                   Dosen Penguji 3: <span>{data.Penguji3}</span>
                 </p>
+                <div className="flex gap-2">
+                  <Button
+                    color="primary"
+                    onClick={() =>
+                      handleApproval(4, data.NIM, { approval_dosen3: 1 })
+                    }
+                  >
+                    Approve
+                  </Button>
+                  <Button
+                    color="danger"
+                    onClick={() =>
+                      handleApproval(4, data.NIM, { approval_dosen3: 2 })
+                    }
+                  >
+                    Reject
+                  </Button>
+                </div>
                 <p>
                   Dosen PA: <span>{data.PA}</span>
                 </p>
+                <div className="flex gap-2">
+                  <Button
+                    color="primary"
+                    onClick={() =>
+                      handleApproval(4, data.NIM, { approval_dosen4: 1 })
+                    }
+                  >
+                    Approve
+                  </Button>
+                  <Button
+                    color="danger"
+                    onClick={() =>
+                      handleApproval(4, data.NIM, { approval_dosen4: 2 })
+                    }
+                  >
+                    Reject
+                  </Button>
+                </div>
                 <p>
                   Bukti Approval:
                   <Button onClick={() => handleDownload(4, data.NIM)}>
@@ -303,6 +467,24 @@ export default function ModalComp({ isOpen, onOpenChange, formID, data }) {
                 <p>
                   Timestamps: <span>{data.Timestamps}</span>
                 </p>
+                <div className="flex gap-2">
+                  <Button
+                    color="success"
+                    onClick={() =>
+                      handleApproval(4, data.NIM, { form_approval: 1 })
+                    }
+                  >
+                    Approve this submission
+                  </Button>
+                  <Button
+                    color="danger"
+                    onClick={() =>
+                      handleApproval(4, data.NIM, { form_approval: 2 })
+                    }
+                  >
+                    Reject this submission
+                  </Button>
+                </div>
               </ModalBody>
             </>
           );
@@ -317,6 +499,7 @@ export default function ModalComp({ isOpen, onOpenChange, formID, data }) {
         onOpenChange={onOpenChange}
         isDismissable={false}
         isKeyboardDismissDisabled={true}
+        scrollBehavior="inside"
       >
         <ModalContent>
           {(onClose) => (
@@ -324,9 +507,6 @@ export default function ModalComp({ isOpen, onOpenChange, formID, data }) {
               <ModalHeader className="flex flex-col gap-1">Details</ModalHeader>
               {modalBody(formID, data)}
               <ModalFooter>
-                {/* <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button> */}
                 <Button color="primary" onPress={onClose}>
                   OK
                 </Button>

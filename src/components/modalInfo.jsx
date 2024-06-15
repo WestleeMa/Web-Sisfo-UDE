@@ -60,7 +60,7 @@ export default function ModalComp({ isOpen, onOpenChange, items }) {
     }
   };
 
-  const handleFileChange = (e) => {
+  const handleFormChange = (e) => {
     const { name, files, value } = e.target;
     if (files) {
       setFormData({ ...formData, Photos: files[0] });
@@ -80,24 +80,19 @@ export default function ModalComp({ isOpen, onOpenChange, items }) {
               label="Title"
               placeholder={items.Title}
               name="Title"
-              onBlur={handleFileChange}
+              onBlur={handleFormChange}
             />
             <Textarea
               label="Description"
               placeholder={items.Description}
               name="Description"
-              onBlur={handleFileChange}
+              onBlur={handleFormChange}
             />
             <Image
               width="100"
               src={`http://localhost:5000/info/image?Info_ID=${items.Info_ID}`}
             ></Image>
-            <input
-              type="file"
-              label="Descriptions"
-              name="Photos"
-              onChange={handleFileChange}
-            />
+            <input type="file" name="Photos" onChange={handleFormChange} />
           </ModalBody>
         </>
       );
@@ -109,18 +104,18 @@ export default function ModalComp({ isOpen, onOpenChange, items }) {
             <Input
               type="text"
               label="Title"
-              onBlur={handleFileChange}
+              onBlur={handleFormChange}
               name="Title"
               isRequired
             />
             <Textarea
               label="Description"
-              onBlur={handleFileChange}
+              onBlur={handleFormChange}
               name="Description"
               isRequired
             />
             <p>Upload Photo</p>
-            <input type="file" onChange={handleFileChange} name="Photos" />
+            <input type="file" onChange={handleFormChange} name="Photos" />
           </ModalBody>
         </>
       );

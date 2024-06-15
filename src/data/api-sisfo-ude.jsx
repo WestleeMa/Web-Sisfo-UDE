@@ -14,6 +14,31 @@ const getInfo = async () => {
   }
 };
 
+const getUsers = async (NI) => {
+  try {
+    if (NI) {
+      const response = await axios.get(
+        `${CONFIG.API_ENDPOINT}/user?=Nomor_Induk=${NI}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.data;
+    } else {
+      const response = await axios.get(`${CONFIG.API_ENDPOINT}/user`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      return response.data;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
 const getDosen = async () => {
   try {
     const response = await axios.get(`${CONFIG.API_ENDPOINT}/dosen`, {
@@ -164,8 +189,8 @@ const login = async (NIM, password) => {
     } else {
       return "Please complete the login form";
     }
-  } catch {
-    return "Invalid NIM or Password";
+  } catch (err) {
+    return err.response;
   }
 };
 
@@ -199,7 +224,62 @@ const deleteInfo = async (Info_ID) => {
     }
   } catch (error) {
     console.error(error);
-    throw error;
+    return error.response;
+  }
+};
+
+const deleteUser = async (NI) => {
+  try {
+    if (NI) {
+      const response = await axios.delete(
+        `${CONFIG.API_ENDPOINT}/userUp?Nomor_Induk=${NI}`
+      );
+      return response.data;
+    }
+  } catch (error) {
+    console.error(error);
+    return error.response;
+  }
+};
+
+const editUser = async (formdata) => {
+  try {
+    if (formdata) {
+      const response = await axios.post(
+        `${CONFIG.API_ENDPOINT}/userUp`,
+        formdata,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response;
+    }
+  } catch (error) {
+    console.error(error);
+    return error.response;
+  }
+};
+
+const registUser = async (formdata) => {
+  try {
+    if (formdata) {
+      const response = await axios.post(
+        `${CONFIG.API_ENDPOINT}/regist`,
+        formdata,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(response);
+      return response;
+    }
+  } catch (error) {
+    console.error(error);
+    return error.response;
   }
 };
 
@@ -219,9 +299,26 @@ const approveDosen = async (formID, NIM, approval) => {
     }
   } catch (error) {
     console.error(error);
-    throw error;
+    return error.response;
   }
 };
+
+const userChangePass = async (data) => {
+  try {
+    if (data) {
+      const response = await axios.post(
+        `${CONFIG.API_ENDPOINT}/changepass`,
+        data,
+        { headers: "application/json" }
+      );
+      return response;
+    }
+  } catch (error) {
+    console.error(error);
+    return error.response;
+  }
+};
+
 export {
   sendFormData,
   getInfo,
@@ -236,4 +333,9 @@ export {
   deleteInfo,
   getLinks,
   approveDosen,
+  getUsers,
+  deleteUser,
+  editUser,
+  registUser,
+  userChangePass,
 };

@@ -6,6 +6,7 @@ import InfoDetail from "../pages/InfoDetail";
 import Login from "../layouts/Login";
 import Status from "../pages/Status";
 import Manage from "../pages/adminManage";
+import ChangePass from "../pages/ChangePassword";
 
 const router = createBrowserRouter([
   { path: "login", element: <Login /> },
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "adminmng",
         element: <Manage />,
+      },
+      {
+        path: "changepass",
+        element: <ChangePass />,
       },
     ],
   },
