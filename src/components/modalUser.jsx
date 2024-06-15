@@ -9,6 +9,8 @@ import {
   Input,
   Textarea,
   Image,
+  Select,
+  SelectItem,
 } from "@nextui-org/react";
 import { editUser, registUser } from "../data/api-sisfo-ude";
 import { toast } from "react-toastify";
@@ -18,6 +20,7 @@ export default function ModalComp({ isOpen, onOpenChange, items }) {
   const [formData, setFormData] = useState([]);
   const [addOrEdit, setAoe] = useState([]);
   const [NomorInduk, setNomorInduk] = useState([]);
+  const roles = ["user", "admin"];
 
   const objectToFormData = (obj) => {
     const formData = new FormData();
@@ -115,13 +118,16 @@ export default function ModalComp({ isOpen, onOpenChange, items }) {
               src={`http://localhost:5000/userImg?Nomor_Induk=${items.Nomor_Induk}`}
             ></Image>
             <input type="file" onChange={handleFormChange} />
-            <Input
-              type="text"
+            <Select
               label="Role"
-              placeholder={items.Role}
               name="Role"
-              onBlur={handleFormChange}
-            />
+              placeholder={items.Role}
+              onChange={handleFormChange}
+            >
+              {roles.map((role) => (
+                <SelectItem key={role}>{role}</SelectItem>
+              ))}
+            </Select>
             <Input
               type="text"
               label="E-mail"
@@ -161,12 +167,11 @@ export default function ModalComp({ isOpen, onOpenChange, items }) {
               onBlur={handleFormChange}
             />
             <input type="file" onChange={handleFormChange} />
-            <Input
-              type="text"
-              label="Role"
-              name="Role"
-              onBlur={handleFormChange}
-            />
+            <Select label="Role" name="Role" onChange={handleFormChange}>
+              {roles.map((role) => (
+                <SelectItem key={role}>{role}</SelectItem>
+              ))}
+            </Select>
             <Input
               type="text"
               label="E-mail"
