@@ -111,12 +111,6 @@ export default function ModalComp({ isOpen, onOpenChange, formID, data }) {
                     {data.Draft_naskah}
                   </Button>
                 </p>
-                <p>
-                  Skema Skripsi: <span>{data.Skema_skripsi}</span>
-                </p>
-                <p>
-                  Timestamps: <span>{data.Timestamps}</span>
-                </p>
                 <div className="flex gap-2">
                   <Button
                     color="success"
@@ -124,7 +118,7 @@ export default function ModalComp({ isOpen, onOpenChange, formID, data }) {
                       handleApproval(1, data.NIM, { form_approval: 1 })
                     }
                   >
-                    Approve this submission
+                    Valid Document
                   </Button>
                   <Button
                     color="danger"
@@ -132,9 +126,15 @@ export default function ModalComp({ isOpen, onOpenChange, formID, data }) {
                       handleApproval(1, data.NIM, { form_approval: 2 })
                     }
                   >
-                    Reject this submission
+                    Invalid Document
                   </Button>
                 </div>
+                <p>
+                  Skema Skripsi: <span>{data.Skema_skripsi}</span>
+                </p>
+                <p>
+                  Timestamps: <span>{data.Timestamps}</span>
+                </p>
               </ModalBody>
             </>
           );
@@ -253,6 +253,24 @@ export default function ModalComp({ isOpen, onOpenChange, formID, data }) {
                     {data.Bukti_approval}
                   </Button>
                 </p>
+                <div className="flex gap-2">
+                  <Button
+                    color="success"
+                    onClick={() =>
+                      handleApproval(2, data.NIM, { form_approval: 1 })
+                    }
+                  >
+                    Valid Document
+                  </Button>
+                  <Button
+                    color="danger"
+                    onClick={() =>
+                      handleApproval(2, data.NIM, { form_approval: 2 })
+                    }
+                  >
+                    Invalid Document
+                  </Button>
+                </div>
                 <p>
                   Link Google Docs:{" "}
                   <a href={data.Link_google} target="_blank" rel="noreferrer">
@@ -262,24 +280,6 @@ export default function ModalComp({ isOpen, onOpenChange, formID, data }) {
                 <p>
                   Timestamps: <span>{data.Timestamps}</span>
                 </p>
-                <div className="flex gap-2">
-                  <Button
-                    color="success"
-                    onClick={() =>
-                      handleApproval(2, data.NIM, { form_approval: 1 })
-                    }
-                  >
-                    Approve this submission
-                  </Button>
-                  <Button
-                    color="danger"
-                    onClick={() =>
-                      handleApproval(2, data.NIM, { form_approval: 2 })
-                    }
-                  >
-                    Reject this submission
-                  </Button>
-                </div>
               </ModalBody>
             </>
           );
@@ -444,6 +444,24 @@ export default function ModalComp({ isOpen, onOpenChange, formID, data }) {
                     {data.Bukti_approval}
                   </Button>
                 </p>
+                <div className="flex gap-2">
+                  <Button
+                    color="success"
+                    onClick={() =>
+                      handleApproval(4, data.NIM, { form_approval: 1 })
+                    }
+                  >
+                    Valid Document
+                  </Button>
+                  <Button
+                    color="danger"
+                    onClick={() =>
+                      handleApproval(4, data.NIM, { form_approval: 2 })
+                    }
+                  >
+                    Invalid Document
+                  </Button>
+                </div>
                 <p>
                   Link Google Docs:
                   <a
@@ -467,24 +485,6 @@ export default function ModalComp({ isOpen, onOpenChange, formID, data }) {
                 <p>
                   Timestamps: <span>{data.Timestamps}</span>
                 </p>
-                <div className="flex gap-2">
-                  <Button
-                    color="success"
-                    onClick={() =>
-                      handleApproval(4, data.NIM, { form_approval: 1 })
-                    }
-                  >
-                    Approve this submission
-                  </Button>
-                  <Button
-                    color="danger"
-                    onClick={() =>
-                      handleApproval(4, data.NIM, { form_approval: 2 })
-                    }
-                  >
-                    Reject this submission
-                  </Button>
-                </div>
               </ModalBody>
             </>
           );

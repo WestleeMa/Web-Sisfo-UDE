@@ -79,9 +79,10 @@ function MngThesis1() {
           <TableColumn>Judul Skripsi</TableColumn>
           <TableColumn>Dosen Pembimbing 1</TableColumn>
           <TableColumn>Dosen Pembimbing 2</TableColumn>
+          <TableColumn>Document Validation</TableColumn>
           <TableColumn>Skema Skripsi</TableColumn>
           <TableColumn>Timestamps</TableColumn>
-          <TableColumn>Form Approval</TableColumn>
+          <TableColumn>Status</TableColumn>
           <TableColumn>Action</TableColumn>
         </TableHeader>
         <TableBody>
@@ -109,7 +110,7 @@ function MngThesis1() {
                 )}
               </TableCell>
               <TableCell>
-                {item.Dospem2}{" "}
+                {item.Dospem2}
                 {item.approval_dosen2 === 0 ? (
                   <>
                     <p className="text-yellow-600">Pending</p>
@@ -124,8 +125,6 @@ function MngThesis1() {
                   </>
                 )}
               </TableCell>
-              <TableCell>{item.Skema_skripsi}</TableCell>
-              <TableCell>{item.Timestamps}</TableCell>
               <TableCell>
                 {item.form_approval === 0 ? (
                   <>
@@ -133,7 +132,28 @@ function MngThesis1() {
                   </>
                 ) : item.form_approval === 1 ? (
                   <>
-                    <p className="text-green-600">Approved</p>
+                    <p className="text-green-600">Valid</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-red-600">Invalid</p>
+                  </>
+                )}
+              </TableCell>
+              <TableCell>{item.Skema_skripsi}</TableCell>
+              <TableCell>{item.Timestamps}</TableCell>
+              <TableCell>
+                {item.approval_dosen1 === 0 &&
+                item.approval_dosen2 === 0 &&
+                item.form_approval === 0 ? (
+                  <>
+                    <p className="text-yellow-600">Pending</p>
+                  </>
+                ) : item.approval_dosen1 === 1 &&
+                  item.approval_dosen2 === 1 &&
+                  item.form_approval === 1 ? (
+                  <>
+                    <p className="text-green-600">Passed</p>
                   </>
                 ) : (
                   <>
@@ -206,9 +226,10 @@ function MngThesis2() {
           <TableColumn>Dosen Penguji 2</TableColumn>
           <TableColumn>Dosen Penguji 3</TableColumn>
           <TableColumn>Dosen PA</TableColumn>
+          <TableColumn>Document Validation</TableColumn>
           <TableColumn>Link Google</TableColumn>
           <TableColumn>Timestamps</TableColumn>
-          <TableColumn>Form Approval</TableColumn>
+          <TableColumn>Status</TableColumn>
           <TableColumn>Action</TableColumn>
         </TableHeader>
         <TableBody>
@@ -284,8 +305,6 @@ function MngThesis2() {
                   </>
                 )}
               </TableCell>
-              <TableCell>{item.Link_google}</TableCell>
-              <TableCell>{item.Timestamps}</TableCell>
               <TableCell>
                 {item.form_approval === 0 ? (
                   <>
@@ -293,7 +312,32 @@ function MngThesis2() {
                   </>
                 ) : item.form_approval === 1 ? (
                   <>
-                    <p className="text-green-600">Approved</p>
+                    <p className="text-green-600">Valid</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-red-600">Invalid</p>
+                  </>
+                )}
+              </TableCell>
+              <TableCell>{item.Link_google}</TableCell>
+              <TableCell>{item.Timestamps}</TableCell>
+              <TableCell>
+                {item.approval_dosen1 === 0 &&
+                item.approval_dosen2 === 0 &&
+                item.approval_dosen3 === 0 &&
+                item.approval_dosen4 === 0 &&
+                item.form_approval === 0 ? (
+                  <>
+                    <p className="text-yellow-600">Pending</p>
+                  </>
+                ) : item.approval_dosen1 === 1 &&
+                  item.approval_dosen2 === 1 &&
+                  item.approval_dosen3 === 1 &&
+                  item.approval_dosen4 === 1 &&
+                  item.form_approval === 1 ? (
+                  <>
+                    <p className="text-green-600">Passed</p>
                   </>
                 ) : (
                   <>
@@ -439,10 +483,11 @@ function MngThesis4() {
           <TableColumn>Dosen Penguji 2</TableColumn>
           <TableColumn>Dosen Penguji 3</TableColumn>
           <TableColumn>Dosen PA</TableColumn>
+          <TableColumn>Document Validation</TableColumn>
           <TableColumn>Link Google Docs</TableColumn>
           <TableColumn>Link Video Presentasi</TableColumn>
           <TableColumn>Timestamps</TableColumn>
-          <TableColumn>Form Approval</TableColumn>
+          <TableColumn>Status</TableColumn>
           <TableColumn>Action</TableColumn>
         </TableHeader>
         <TableBody>
@@ -517,9 +562,6 @@ function MngThesis4() {
                   </>
                 )}
               </TableCell>
-              <TableCell>{item.Link_Google_docs}</TableCell>
-              <TableCell>{item.Link_Video_presentasi}</TableCell>
-              <TableCell>{item.Timestamps}</TableCell>
               <TableCell>
                 {item.form_approval === 0 ? (
                   <>
@@ -527,7 +569,33 @@ function MngThesis4() {
                   </>
                 ) : item.form_approval === 1 ? (
                   <>
-                    <p className="text-green-600">Approved</p>
+                    <p className="text-green-600">Valid</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-red-600">Invalid</p>
+                  </>
+                )}
+              </TableCell>
+              <TableCell>{item.Link_Google_docs}</TableCell>
+              <TableCell>{item.Link_Video_presentasi}</TableCell>
+              <TableCell>{item.Timestamps}</TableCell>
+              <TableCell>
+                {item.approval_dosen1 === 0 &&
+                item.approval_dosen2 === 0 &&
+                item.approval_dosen3 === 0 &&
+                item.approval_dosen4 === 0 &&
+                item.form_approval === 0 ? (
+                  <>
+                    <p className="text-yellow-600">Pending</p>
+                  </>
+                ) : item.approval_dosen1 === 1 &&
+                  item.approval_dosen2 === 1 &&
+                  item.approval_dosen3 === 1 &&
+                  item.approval_dosen4 === 1 &&
+                  item.form_approval === 1 ? (
+                  <>
+                    <p className="text-green-600">Passed</p>
                   </>
                 ) : (
                   <>
@@ -535,7 +603,6 @@ function MngThesis4() {
                   </>
                 )}
               </TableCell>
-
               <TableCell>
                 <Button
                   color="warning"

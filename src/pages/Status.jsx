@@ -87,7 +87,7 @@ export default function Status() {
           } else if (approval_dosen1 === 2 && approval_dosen2 === 2) {
             rejectReason = `Rejected: All Lecturer Rejected`;
           } else {
-            rejectReason = "Rejected: Submission Rejected";
+            rejectReason = "Rejected: Invalid Document";
           }
 
           return (
@@ -160,43 +160,25 @@ export default function Status() {
           form_approval === 2
         ) {
           let rejectReason;
-          if (
-            approval_dosen1 === 2 &&
-            approval_dosen2 === 1 &&
-            approval_dosen3 === 1 &&
-            approval_dosen4 === 1
-          ) {
-            rejectReason = `Rejected: ${Penguji1} Rejected`;
-          } else if (
-            approval_dosen1 === 1 &&
-            approval_dosen2 === 2 &&
-            approval_dosen3 === 1 &&
-            approval_dosen4 === 1
-          ) {
-            rejectReason = `Rejected: ${Penguji2} Rejected`;
-          } else if (
-            approval_dosen1 === 1 &&
-            approval_dosen2 === 1 &&
-            approval_dosen3 === 2 &&
-            approval_dosen4 === 1
-          ) {
-            rejectReason = `Rejected: ${Penguji3} Rejected`;
-          } else if (
-            approval_dosen1 === 1 &&
-            approval_dosen2 === 1 &&
-            approval_dosen3 === 1 &&
-            approval_dosen4 === 2
-          ) {
-            rejectReason = `Rejected: ${PA} Rejected`;
-          } else if (
-            approval_dosen1 === 2 &&
-            approval_dosen2 === 2 &&
-            approval_dosen3 === 2 &&
-            approval_dosen4 === 2
-          ) {
+          let namaDosen = [];
+          if (approval_dosen1 === 2) {
+            namaDosen.push(Penguji1);
+          }
+          if (approval_dosen2 === 2) {
+            namaDosen.push(Penguji2);
+          }
+          if (approval_dosen3 === 2) {
+            namaDosen.push(Penguji3);
+          }
+          if (approval_dosen4 === 2) {
+            namaDosen.push(PA);
+          }
+          if (form_approval === 2) {
+            rejectReason = "Rejected: Invalid Document";
+          } else if (namaDosen.length >= 0 && namaDosen.length < 4) {
+            rejectReason = `Rejected: ${[...namaDosen]} rejected`;
+          } else if (namaDosen.length === 4) {
             rejectReason = `Rejected: All Lecturer Rejected`;
-          } else {
-            rejectReason = "Rejected: Submission Rejected";
           }
 
           return (
@@ -273,43 +255,25 @@ export default function Status() {
           form_approval === 2
         ) {
           let rejectReason;
-          if (
-            approval_dosen1 === 2 &&
-            approval_dosen2 === 1 &&
-            approval_dosen3 === 1 &&
-            approval_dosen4 === 1
-          ) {
-            rejectReason = `Rejected: ${Penguji1} Rejected`;
-          } else if (
-            approval_dosen1 === 1 &&
-            approval_dosen2 === 2 &&
-            approval_dosen3 === 1 &&
-            approval_dosen4 === 1
-          ) {
-            rejectReason = `Rejected: ${Penguji2} Rejected`;
-          } else if (
-            approval_dosen1 === 1 &&
-            approval_dosen2 === 1 &&
-            approval_dosen3 === 2 &&
-            approval_dosen4 === 1
-          ) {
-            rejectReason = `Rejected: ${Penguji3} Rejected`;
-          } else if (
-            approval_dosen1 === 1 &&
-            approval_dosen2 === 1 &&
-            approval_dosen3 === 1 &&
-            approval_dosen4 === 2
-          ) {
-            rejectReason = `Rejected: ${PA} Rejected`;
-          } else if (
-            approval_dosen1 === 2 &&
-            approval_dosen2 === 2 &&
-            approval_dosen3 === 2 &&
-            approval_dosen4 === 2
-          ) {
+          let namaDosen = [];
+          if (approval_dosen1 === 2) {
+            namaDosen.push(Penguji1);
+          }
+          if (approval_dosen2 === 2) {
+            namaDosen.push(Penguji2);
+          }
+          if (approval_dosen3 === 2) {
+            namaDosen.push(Penguji3);
+          }
+          if (approval_dosen4 === 2) {
+            namaDosen.push(PA);
+          }
+          if (form_approval === 2) {
+            rejectReason = "Rejected: Invalid Document";
+          } else if (namaDosen.length >= 0 && namaDosen.length < 4) {
+            rejectReason = `Rejected: ${[...namaDosen]} rejected`;
+          } else if (namaDosen.length === 4) {
             rejectReason = `Rejected: All Lecturer Rejected`;
-          } else {
-            rejectReason = "Rejected: Submission Rejected";
           }
 
           return (
